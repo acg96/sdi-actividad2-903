@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Wallapop</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
+
+    </script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+
+    </script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#myNavbar">
+                <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <img src="img/icon-wallapop.png" alt="logo" />
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            {% if usuario != null %}
+            <ul class="nav navbar-nav">
+                <li><a style="color: #FFFFFF" id="navEmail">{{usuario.email}}</a></li>
+                {% if usuario.rol === "estandar" %}
+                <li><a style="color: #FFFFFF" id="navMoney">Cartera: {{usuario.cartera}}€</a></li>
+                {% endif %}
+                <li><a style="color: #FFFFFF">|</a></li>
+                <li><a href="/">Inicio</a></li>
+                {% if usuario.rol === "estandar" %}
+                <li id="offers-menu" class="dropdown"><a
+                        class="dropdown-toggle" data-toggle="dropdown" href="#"
+                        id="btnOffersManagement"><span
+                        class="caret"></span> Gestión de Ofertas </a>
+                    <ul class="dropdown-menu" id="offersDropdownMenuButton">
+                        <li><a href="/oferta/add">Añadir oferta</a></li>
+                        <li><a href="/oferta/list">Ver mis ofertas</a></li>
+                        <li><a href="/oferta/search">Buscar ofertas</a></li>
+                        <li><a href="/compra/list">Ver compras</a></li>
+                    </ul></li>
+                {% endif %}
+                {% if usuario.rol === "administrador" %}
+                <li id="users-menu" class="dropdown"><a
+                        class="dropdown-toggle" data-toggle="dropdown" href="#"
+                        id="btnUsersManagement"><span
+                        class="caret"></span>Gestión de Usuarios </a>
+                    <ul class="dropdown-menu" id="usersDropdownMenuButton">
+                        <li><a href="/usuario/list">Ver usuarios</a></li>
+                    </ul></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if usuario == null %}
+                <li><a href="/registrarse" id="navSignup"> <span
+                        class="glyphicon glyphicon-user">Registrarse</span>
+                </a></li>
+                <li><a href="/identificarse" id="navLogin"> <span
+                        class="glyphicon glyphicon-log-in">Identificarse</span>
+                </a></li>
+                {% else %}
+                <li><a href="/desconectarse" id="navLogout"> <span
+                        class="glyphicon glyphicon-log-out">Desconectarse</span>
+                </a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block cuerpo %}
+{% endblock %}
+
+
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">SDI - Mi Wallapop</span>
+    </div>
+</footer>
+
+
+</body>
+</html>
