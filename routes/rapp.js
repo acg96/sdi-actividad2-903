@@ -1,4 +1,4 @@
-module.exports = function (app, swig, logger) {
+module.exports = function (app, swig, logger, gestorBD, initBD) {
     app.get('/', function (req, res) {
         if (req.session.usuario) {
             res.redirect("/home");
@@ -43,5 +43,13 @@ module.exports = function (app, swig, logger) {
     app.get("/principal", function (req, res) {
         var respuesta = swig.renderFile('views/index.html', {usuario: req.session.usuario});
         res.send(respuesta);
+    });
+
+    app.get("/reset", function (req, res) {
+        logger.info("Se ha reestablecido la BBDD");
+        gestorBD.resetMongo(function (result) {
+            initBD.generateData();
+            res.redirect("/");
+        });
     });
 };

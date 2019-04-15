@@ -36,5 +36,33 @@ module.exports = {
                 });
             }
         });
+    }, borrarUsuario: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('usuariosW');
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.result.n);
+                    }
+                    db.close();
+                });
+            }
+        });
+    }, resetMongo: function (funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collectionUsers = db.collection('usuariosW');
+                collectionUsers.drop().then(res => {
+                }, err => {});
+                funcionCallback(1);
+            }
+            db.close();
+        });
     }
 };

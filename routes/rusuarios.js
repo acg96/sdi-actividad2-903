@@ -1,4 +1,4 @@
-module.exports = function (app, swig, gestorBD, logger) {
+module.exports = function (app, swig, gestorBD, logger, mongo) {
     app.get("/registrarse", function (req, res) {
         var respuesta = swig.renderFile('views/signup.html', {usuario: req.session.usuario});
         res.send(respuesta);
@@ -33,6 +33,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                     } else {
                         logger.info("El usuario " + usuario.email + " se ha registrado correctamente.");
                         usuario.password = "";
+                        usuario.id = id.toString();
                         req.session.usuario = usuario;
                         res.redirect("/home");
                     }
@@ -75,5 +76,46 @@ module.exports = function (app, swig, gestorBD, logger) {
         logger.info("El usuario " + req.session.usuario.email + " se ha desconectado.");
         req.session.usuario = null;
         res.redirect("/identificarse");
+    });
+
+    app.get("/usuario/list", function (req, res) {
+        gestorBD.obtenerUsuarios({}, function(usuarios){
+            var users = [];
+            if (usuarios != null) {
+                users = usuarios;
+            }
+            var respuesta = swig.renderFile('views/user/list.html', {usuario: req.session.usuario, usersList: users});
+            res.send(respuesta);
+        });
+    });
+
+    app.post("/usuario/remove", function (req, res) {
+        var deleted = null;
+        var criterio = {$or: []};
+        var cantidad = 0;
+        for (key in req.body) {
+            if (req.session.usuario._id.toString() !== key.toString()) {
+                cantidad++;
+                criterio.$or.push({_id: mongo.ObjectID(key)});
+                logger.info("Se procede a borrar el usuario con id " + key);
+            }
+        }
+        gestorBD.borrarUsuario(criterio, function (result){
+            if (result == null){
+                deleted = "Debe seleccionar alguna de las opciones";
+            } else if (result !== cantidad) {
+                deleted = "No se han podido eliminar todos los usuarios seleccionados";
+            } else {
+                deleted = "Se han borrado correctamente los usuarios seleccionados";
+            }
+            gestorBD.obtenerUsuarios({}, function(usuarios){
+                var users = [];
+                if (usuarios != null) {
+                    users = usuarios;
+                }
+                var respuesta = swig.renderFile('views/user/list.html', {usuario: req.session.usuario, usersList: users, deleted: deleted});
+                res.send(respuesta);
+            });
+        });
     });
 };

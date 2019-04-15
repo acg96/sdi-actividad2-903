@@ -1,0 +1,44 @@
+{% extends "../base.html" %}
+{% block css %}<link rel="stylesheet" href="../css/custom.css" /> {% endblock %}
+{% block img %}<img src="../img/icon-wallapop.png" alt="logo" /> {% endblock %}
+{% block cuerpo %}
+<div class="container">
+    <h2 id="userListId">Usuarios</h2>
+    <p>Los usuarios que actualmente figuran en el sistema son los siguientes:</p>
+    <form method="post" action="/usuario/remove">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="col-md-1"></th>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in usersList %}
+                <tr>
+                    {% if user.email !== usuario.email %}
+                    <td><input type="checkbox" class="form-check-input"
+                               id="check-{{user.email}}"
+                               name="{{user._id.toString()}}"></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td class="emailsList"
+                        id="{{user.email}}">{{user.email}}</td>
+                    <td>{{user.nombre}}</td>
+                    <td>{{user.apellidos}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if deleted %}
+        <p class="text-danger">{{deleted}}</p>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Eliminar Seleccionados</button>
+    </form>
+</div>
+{% endblock %}
