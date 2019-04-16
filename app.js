@@ -118,7 +118,7 @@ app.use("/compra/*", routerUsuarioEstandar);
 require("./routes/rusuarios.js")(app, swig, gestorBD, logger);
 require("./routes/rapp")(app, swig, logger, gestorBD, initBD);
 require("./routes/rofertas.js")(app, swig, gestorBD, logger);
-//require("./routes/rcompras.js")(app, swig, gestorBD, logger);
+require("./routes/rcompras.js")(app, swig, gestorBD, logger);
 
 
 

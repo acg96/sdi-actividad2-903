@@ -30,7 +30,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                     } else {
                         logger.info("El usuario " + req.session.usuario.email + " ha destacado la oferta " + id);
                         req.session.saldoIns= 1;
-                        req.session.usuario.cartera = Math.round(req.session.usuario.cartera - 20.0);
+                        req.session.usuario.cartera = Math.round((req.session.usuario.cartera - 20.0)*100)/100.0;
                         gestorBD.actualizarCarteraUsuario(req.session.usuario, function (result) {
                             gestorBD.actualizarOfertaDestacada(ofertas[0], function (result2){
                                 res.redirect("/oferta/list");
@@ -47,6 +47,11 @@ module.exports = function (app, swig, gestorBD, logger) {
     });
 
     app.get("/oferta/search", function (req, res) {
+        var nomoney = 0;
+        if (req.session.saldoInsCompra === 1) {
+            nomoney = 1;
+            req.session.saldoInsCompra = null;
+        }
         var search = '';
         if (req.query.searchText) {
             search = req.query.searchText.trim().toLowerCase();
@@ -80,7 +85,7 @@ module.exports = function (app, swig, gestorBD, logger) {
             if (page.actual > page.total) {
                 page.actual = page.total;
             }
-            var respuesta = swig.renderFile('views/offer/search.html', {usuario: req.session.usuario, offerList: offerList, page: page, search: req.session.search});
+            var respuesta = swig.renderFile('views/offer/search.html', {usuario: req.session.usuario, offerList: offerList, page: page, search: req.session.search, nomoney: nomoney});
             res.send(respuesta);
         });
     });
@@ -130,7 +135,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                     } else {
                         logger.info("El usuario " + oferta.propietario + " ha registrado la oferta " + id.toString() + " (" + oferta.titulo + ") correctamente.");
                         if (oferta.destacada) {
-                            req.session.usuario.cartera = Math.round(req.session.usuario.cartera - 20.0);
+                            req.session.usuario.cartera = Math.round((req.session.usuario.cartera - 20.0)*100)/100.0;
                             gestorBD.actualizarCarteraUsuario(req.session.usuario, function (result) {
                                 res.redirect("/oferta/list");
                             });

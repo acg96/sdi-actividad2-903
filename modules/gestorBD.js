@@ -158,6 +158,25 @@ module.exports = {
                 });
             }
         }.bind(this));
+    }, actualizarOfertaComprada: function (oferta, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('ofertasW');
+                var oferta2 = {
+                    compra: oferta.compra
+                };
+                collection.update({_id: this.mongo.ObjectID(oferta._id)}, {$set: oferta2}, function (err, obj) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(obj.result.n);
+                    }
+                    db.close();
+                });
+            }
+        }.bind(this));
     }, actualizarCarteraUsuario: function (usuario, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
