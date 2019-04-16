@@ -10,7 +10,36 @@ module.exports = function (app, swig, gestorBD, logger) {
         var id = req.params.id;
         if (id != null) {
             gestorBD.borrarOfertas({$and: [{_id: gestorBD.mongo.ObjectID(id)}, {propietario: req.session.usuario._id.toString()}]}, function (result) {
+                logger.info("El usuario " + req.session.usuario.email + " ha optado por borrar la oferta " + id);
                 res.redirect('/oferta/list');
+            });
+        } else {
+            res.redirect('/oferta/list');
+        }
+    });
+
+    app.get("/oferta/star/:id", function (req, res) {
+        var id = req.params.id;
+        if (id != null) {
+            gestorBD.obtenerOfertas({$and: [{_id: gestorBD.mongo.ObjectID(id)}, {propietario: req.session.usuario._id.toString()}, {destacada: null}]}, function (ofertas) {
+                if (ofertas != null && ofertas.length > 0) {
+                    if (req.session.usuario.cartera < 20) {
+                        logger.info("El usuario " + req.session.usuario.email + " no teniendo suficiente saldo ha solicitado destacar la oferta " + id);
+                        req.session.saldoIns= 0;
+                        res.redirect('/oferta/list');
+                    } else {
+                        logger.info("El usuario " + req.session.usuario.email + " ha destacado la oferta " + id);
+                        req.session.saldoIns= 1;
+                        req.session.usuario.cartera = Math.round(req.session.usuario.cartera - 20.0);
+                        gestorBD.actualizarCarteraUsuario(req.session.usuario, function (result) {
+                            gestorBD.actualizarOfertaDestacada(ofertas[0], function (result2){
+                                res.redirect("/oferta/list");
+                            });
+                        });
+                    }
+                } else {
+                    res.redirect('/oferta/list');
+                }
             });
         } else {
             res.redirect('/oferta/list');
@@ -23,7 +52,15 @@ module.exports = function (app, swig, gestorBD, logger) {
             if (ofertas != null) {
                 offerList = ofertas;
             }
-            var respuesta = swig.renderFile('views/offer/list.html', {usuario: req.session.usuario, offerList: offerList});
+            var errorStar = -1;
+            if (req.session.saldoIns != null && req.session.saldoIns === 0) {
+                req.session.saldoIns = null;
+                errorStar = 1;
+            } else if (req.session.saldoIns != null && req.session.saldoIns === 1) {
+                req.session.saldoIns = null;
+                errorStar = 0;
+            }
+            var respuesta = swig.renderFile('views/offer/list.html', {usuario: req.session.usuario, offerList: offerList, errorStar: errorStar});
             res.send(respuesta);
         });
     });
@@ -64,7 +101,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                     }
                 });
             } else {
-                logger.info("Se han producido errores durante el alta de producto.");
+                logger.info("Se han producido errores durante el alta del producto.");
                 var moment = app.get('moment');
                 var fechaActual = moment().format("DD-MM-YYYY");
                 var respuesta = swig.renderFile('views/offer/add.html', {usuario: req.session.usuario, fechaActual: fechaActual, errors: errors});
