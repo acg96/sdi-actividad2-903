@@ -1,0 +1,48 @@
+{% extends "../base.html" %}
+{% block css %}<link rel="stylesheet" href="../css/custom.css" /> {% endblock %}
+{% block img %}<img src="../img/icon-wallapop.png" alt="logo" /> {% endblock %}
+{% block cuerpo %}
+<div class="container">
+    <h2>A Comprar!!!</h2>
+    <form class="navbar-form" method="get" action="/oferta/search">
+        <div class="form-group">
+            <input name="searchText" type="text" class="form-control" size="50"
+                   placeholder="Buscar por el título">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+    </form>
+    {% if nomoney === 1 %}
+    <span class="text-danger">No tienes dinero suficiente</span>
+    {% endif %}
+    <div class="table-responsive">
+        <table class="table table-hover" id="tableSearch">
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for offer in offerList %}
+            <tr>
+                <td id="{{offer._id.toString()}}search"
+                    class="searchOffersList">{{offer.titulo}}</td>
+                <td>{{offer.detalles}}</td>
+                <td>{{offer.precio}}€</td>
+                {% if offer.compra %}
+                <td><p style="color: red;">Vendido</p>
+                </td>
+                {% else %}
+                <td><a href="/compra/add/{{offer._id.toString()}}"
+                        id="{{offer._id.toString()}}_buy"
+                        class="bListToBuy">Comprar</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

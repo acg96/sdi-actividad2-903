@@ -46,6 +46,21 @@ module.exports = function (app, swig, gestorBD, logger) {
         }
     });
 
+    app.get("/oferta/search", function (req, res) {
+        var search = '';
+        if (req.query.searchText) {
+            search = req.query.searchText.trim().toLowerCase();
+        }
+        gestorBD.obtenerOfertas({$and:[{propietario: {$not: {$eq: req.session.usuario._id.toString()}}}, {titulo: {$regex: search, $options: 'i'}}]}, function (ofertas) {
+            var offerList = [];
+            if (ofertas != null) {
+                offerList = ofertas;
+            }
+            var respuesta = swig.renderFile('views/offer/search.html', {usuario: req.session.usuario, offerList: offerList});
+            res.send(respuesta);
+        });
+    });
+
     app.get("/oferta/list", function (req, res) {
         gestorBD.obtenerOfertas({propietario: req.session.usuario._id.toString()}, function (ofertas) {
             var offerList = [];
