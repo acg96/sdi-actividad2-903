@@ -1,9 +1,20 @@
-module.exports = function (app, swig, gestorBD, logger, mongo) {
+module.exports = function (app, swig, gestorBD, logger) {
     app.get("/oferta/add", function (req, res) {
         var moment = app.get('moment');
         var fechaActual = moment().format("DD-MM-YYYY");
         var respuesta = swig.renderFile('views/offer/add.html', {usuario: req.session.usuario, fechaActual: fechaActual});
         res.send(respuesta);
+    });
+
+    app.get("/oferta/list", function (req, res) {
+        gestorBD.obtenerOfertas({}, function (ofertas) {
+            var offerList = [];
+            if (ofertas != null) {
+                offerList = ofertas;
+            }
+            var respuesta = swig.renderFile('views/offer/list.html', {usuario: req.session.usuario, offerList: offerList});
+            res.send(respuesta);
+        });
     });
 
     app.post("/oferta/add", function (req, res) {

@@ -1,0 +1,47 @@
+{% extends "../base.html" %}
+{% block css %}<link rel="stylesheet" href="../css/custom.css" /> {% endblock %}
+{% block img %}<img src="../img/icon-wallapop.png" alt="logo" /> {% endblock %}
+{% block cuerpo %}
+<div class="container">
+    <h2>Tus ofertas</h2>
+    <div class="table-responsive">
+        {% if errorStar === 0 %}
+        <span class="text-danger">Se ha destacado correctamente la oferta</span>
+        {% endif %}
+        {% if errorStar === 1 %}
+        <span class="text-danger">No tienes fondos suficientes para marcarla como destacada</span>
+        {% endif %}
+
+        <table class="table table-hover" id="tableOffers">
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+                <th class="col-md-1"></th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for offer in offerList %}
+            <tr>
+                <td>{{offer.titulo}}</td>
+                <td>{{offer.detalles}}</td>
+                <td>{{offer.precio}}€</td>
+                <td><a href="/oferta/remove/{{offer._id.toString()}}"
+                       id="{{offer._id.toString()}}listRem"
+                       class="ownOffersListIdRem">Eliminar</a></td>
+                {% if offer.destacada %}
+                <td><span>Ya destacada</span></td>
+                {% else %}
+                <td><a href="/oferta/star/{{offer._id.toString()}}"
+                        id="{{offer._id.toString()}}listDest"
+                        class="listIdStar">Destacar (20€)</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
