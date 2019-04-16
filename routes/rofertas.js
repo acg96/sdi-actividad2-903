@@ -6,8 +6,19 @@ module.exports = function (app, swig, gestorBD, logger) {
         res.send(respuesta);
     });
 
+    app.get("/oferta/remove/:id", function (req, res) {
+        var id = req.params.id;
+        if (id != null) {
+            gestorBD.borrarOfertas({$and: [{_id: gestorBD.mongo.ObjectID(id)}, {propietario: req.session.usuario._id.toString()}]}, function (result) {
+                res.redirect('/oferta/list');
+            });
+        } else {
+            res.redirect('/oferta/list');
+        }
+    });
+
     app.get("/oferta/list", function (req, res) {
-        gestorBD.obtenerOfertas({}, function (ofertas) {
+        gestorBD.obtenerOfertas({propietario: req.session.usuario._id.toString()}, function (ofertas) {
             var offerList = [];
             if (ofertas != null) {
                 offerList = ofertas;
