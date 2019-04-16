@@ -37,7 +37,7 @@ module.exports = function (app, swig, logger, gestorBD, initBD) {
 
     app.get("/home", function (req, res) {
         var offerList = [];
-        gestorBD.obtenerOfertas({propietario: {$not: {$eq: req.session.usuario._id.toString()}}}, function (ofertas){
+        gestorBD.obtenerOfertas({$and:[{propietario: {$not: {$eq: req.session.usuario._id.toString()}}}, {destacada: 'on'}]}, function (ofertas){
             if (ofertas != null) {
                 offerList = ofertas;
             }

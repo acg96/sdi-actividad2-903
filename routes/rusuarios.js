@@ -96,7 +96,6 @@ module.exports = function (app, swig, gestorBD, logger) {
             if (req.session.usuario._id.toString() !== key.toString()) {
                 cantidad++;
                 criterio.$or.push({_id: gestorBD.mongo.ObjectID(key)});
-                criterio.$or.push({propietario: key});
                 logger.info("Se procede a borrar el usuario con id " + key);
             }
         }

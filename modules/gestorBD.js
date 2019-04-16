@@ -62,9 +62,13 @@ module.exports = {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        this.borrarOfertas(criterio, function (res) {
-                            funcionCallback(result.result.n);
-                        });
+                        for (var i = 0; i < criterio.$or.length; ++i) {
+                            if (criterio.$or[i]._id) {
+                                this.borrarOfertas({propietario: criterio.$or[i]._id.toString()}, function (res){
+                                });
+                            }
+                        }
+                        funcionCallback(result.result.n);
                     }
                     db.close();
                 }.bind(this));
@@ -76,16 +80,24 @@ module.exports = {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('ofertasW');
-                collection.remove(criterio, function (err, result) {
-                    if (err) {
-                        funcionCallback(null);
-                    } else {
-                        funcionCallback(result.result.n);
+                this.obtenerOfertas(criterio, function (ofertas) {
+                    collection.remove(criterio, function (err, result) {
+                        if (err) {
+                            funcionCallback(null);
+                        } else {
+                            funcionCallback(result.result.n);
+                        }
+                        db.close();
+                    });
+                    if (ofertas != null) {
+                        for (var i = 0; i < ofertas.length; ++i) {
+                           // console.log(ofertas[i].titulo);
+                          // ofertas[i]._id.toString()
+                        }
                     }
-                    db.close();
-                });
+                }.bind(this));
             }
-        });
+        }.bind(this));
     }, insertarOferta: function (oferta, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
