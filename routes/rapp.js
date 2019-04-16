@@ -36,8 +36,14 @@ module.exports = function (app, swig, logger, gestorBD, initBD) {
     });
 
     app.get("/home", function (req, res) {
-        var respuesta = swig.renderFile('views/home.html', {usuario: req.session.usuario});
-        res.send(respuesta);
+        var offerList = [];
+        gestorBD.obtenerOfertas({propietario: {$not: {$eq: req.session.usuario._id.toString()}}}, function (ofertas){
+            if (ofertas != null) {
+                offerList = ofertas;
+            }
+            var respuesta = swig.renderFile('views/home.html', {usuario: req.session.usuario, offerList: offerList});
+            res.send(respuesta);
+        });
     });
 
     app.get("/principal", function (req, res) {

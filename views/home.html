@@ -6,4 +6,36 @@
     <span>Usuario:</span> <span>{{usuario.email}}</span>
 </div>
 
+{% if offerList.length > 0 && usuario.rol === "estandar" %}
+<div class="table-responsive">
+    <h3>Ofertas Destacadas</h3>
+    <table class="table table-hover" id="tableSearch">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Detalles</th>
+            <th>Precio</th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for offer in offerList %}
+        <tr>
+            <td id="{{offer._id.toString()}}search"
+                class="searchOffersList">{{offer.titulo}}</td>
+            <td>{{offer.detalles}}</td>
+            <td>{{offer.precio}}€</td>
+            {% if offer.compra == null %}
+            <td><a href="/compra/add/{{offer._id.toString()}}"
+                    id="{{offer._id.toString()}}_buy"
+                    class="bListToBuy">Comprar</a></td>
+            {% else %}
+            <td><p style="color: red;">Vendido</p></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
 {% endblock %}
