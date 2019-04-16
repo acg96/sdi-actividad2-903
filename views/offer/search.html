@@ -7,7 +7,7 @@
     <form class="navbar-form" method="get" action="/oferta/search">
         <div class="form-group">
             <input name="searchText" type="text" class="form-control" size="50"
-                   placeholder="Buscar por el título">
+                   placeholder="Buscar por el título" value="{{search}}">
         </div>
         <button type="submit" class="btn btn-default">Buscar</button>
     </form>
@@ -43,6 +43,35 @@
             {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="text-center">
+        <ul class="pagination pagination-centered">
+            <!-- Primera -->
+            {% if page.actual > 1 %}
+            <li class="page-item"><a class="page-link" href="/oferta/search?pg=1">Primera</a></li>
+            {% endif %}
+            <!-- Anterior (si la hay ) -->
+            {% if page.actual > 2 %}
+            <li class="page-item"><a
+                    class="page-link" href="/oferta/search?pg={{page.actual-1}}"
+                    id="{{page.actual-1}}pag">{{page.actual-1}}</a></li>
+            {% endif %}
+            <!-- Actual -->
+            <li class="page-item active"><a class="page-link"
+                                            href="/oferta/search?pg={{page.actual}}"
+                                            id="{{page.actual}}pag">{{page.actual}}</a></li>
+            <!-- Siguiente (si la hay) -->
+            {% if page.actual < page.total - 1 %}
+            <li class="page-item"><a
+                    class="page-link" href="/oferta/search?pg={{page.actual+1}}"
+                    id="{{page.actual+1}}pag">{{page.actual+1}}</a></li>
+            {% endif %}
+            <!-- Última -->
+            {% if page.actual < page.total %}
+            <li class="page-item"><a class="page-link"
+                                     href="/oferta/search?pg={{page.total}}">Última</a></li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 {% endblock %}

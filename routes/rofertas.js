@@ -50,13 +50,37 @@ module.exports = function (app, swig, gestorBD, logger) {
         var search = '';
         if (req.query.searchText) {
             search = req.query.searchText.trim().toLowerCase();
+            req.session.search = search;
+        } else if (req.session.search == null) {
+            req.session.search = '';
+        } else if (req.query.pg == null) {
+            req.session.search = '';
+        } else {
+            search = req.session.search;
         }
-        gestorBD.obtenerOfertas({$and:[{propietario: {$not: {$eq: req.session.usuario._id.toString()}}}, {titulo: {$regex: search, $options: 'i'}}]}, function (ofertas) {
+        var pg = 1;
+        if (req.query.pg) {
+            var aux = parseInt(req.query.pg);
+            if (!isNaN(aux) && aux > 0) {
+                pg = aux;
+            }
+        }
+        gestorBD.obtenerOfertasPaginadas({$and:[{propietario: {$not: {$eq: req.session.usuario._id.toString()}}}, {titulo: {$regex: search, $options: 'i'}}]}, pg, function (ofertas, cantidad) {
             var offerList = [];
             if (ofertas != null) {
                 offerList = ofertas;
             }
-            var respuesta = swig.renderFile('views/offer/search.html', {usuario: req.session.usuario, offerList: offerList});
+            page = {
+                total: parseInt(cantidad / 5),
+                actual: pg
+            };
+            if (cantidad % 5 > 0) {
+                page.total = page.total + 1;
+            }
+            if (page.actual > page.total) {
+                page.actual = page.total;
+            }
+            var respuesta = swig.renderFile('views/offer/search.html', {usuario: req.session.usuario, offerList: offerList, page: page, search: req.session.search});
             res.send(respuesta);
         });
     });

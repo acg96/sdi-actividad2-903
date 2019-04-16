@@ -52,6 +52,31 @@ module.exports = {
                 });
             }
         });
+    }, obtenerOfertasPaginadas: function (criterio, pagActual, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null, 1);
+            } else {
+                var collection = db.collection('ofertasW');
+                collection.find(criterio).toArray(function (err1, offersCantidad){
+                    var maxPag = parseInt(offersCantidad.length / 5);
+                    if (offersCantidad.length % 5 > 0) {
+                        ++maxPag;
+                    }
+                    if (pagActual > maxPag) {
+                        pagActual = maxPag;
+                    }
+                    collection.find(criterio).sort({titulo: 1}).skip((pagActual-1)*5).limit(5).toArray(function (err, ofertas) {
+                        if (err) {
+                            funcionCallback(null, 1);
+                        } else {
+                            funcionCallback(ofertas, offersCantidad.length);
+                        }
+                        db.close();
+                    });
+                });
+            }
+        });
     }, borrarUsuario: function (criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {

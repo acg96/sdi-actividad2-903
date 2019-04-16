@@ -54,6 +54,7 @@ module.exports = function (app, swig, logger, gestorBD, initBD) {
     app.get("/reset", function (req, res) {
         logger.info("Se ha reestablecido la BBDD");
         gestorBD.resetMongo(function (result) {
+            req.session.usuario = null;
             initBD.generateData();
             res.redirect("/");
         });
