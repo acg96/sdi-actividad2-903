@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var swig = require('swig');
 var crypto = require('crypto');
 var mongo = require('mongodb');
+var moment = require('moment');
+app.set('moment', moment);
 var gestorBD = require("./modules/gestorBD.js");
 var initBD = require("./modules/initBD.js");
 gestorBD.init(app, mongo);
@@ -113,9 +115,9 @@ app.use("/compra/*", routerUsuarioEstandar);
 
 
 //Rutas
-require("./routes/rusuarios.js")(app, swig, gestorBD, logger, mongo);
+require("./routes/rusuarios.js")(app, swig, gestorBD, logger);
 require("./routes/rapp")(app, swig, logger, gestorBD, initBD);
-//require("./routes/rofertas.js")(app, swig, gestorBD, logger);
+require("./routes/rofertas.js")(app, swig, gestorBD, logger);
 //require("./routes/rcompras.js")(app, swig, gestorBD, logger);
 
 

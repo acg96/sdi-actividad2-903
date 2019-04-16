@@ -1,4 +1,4 @@
-module.exports = function (app, swig, gestorBD, logger, mongo) {
+module.exports = function (app, swig, gestorBD, logger) {
     app.get("/registrarse", function (req, res) {
         var respuesta = swig.renderFile('views/signup.html', {usuario: req.session.usuario});
         res.send(respuesta);
@@ -23,7 +23,7 @@ module.exports = function (app, swig, gestorBD, logger, mongo) {
                     rol: "estandar",
                     nombre: req.body.name.trim(),
                     apellidos: req.body.lastName.trim(),
-                    cartera: 100
+                    cartera: 100.0
                 }
                 gestorBD.insertarUsuario(usuario, function (id) {
                     if (id == null) {
@@ -32,7 +32,6 @@ module.exports = function (app, swig, gestorBD, logger, mongo) {
                         res.send(respuesta);
                     } else {
                         logger.info("El usuario " + usuario.email + " se ha registrado correctamente.");
-                        usuario.password = "";
                         usuario.id = id.toString();
                         req.session.usuario = usuario;
                         res.redirect("/home");
@@ -96,7 +95,8 @@ module.exports = function (app, swig, gestorBD, logger, mongo) {
         for (key in req.body) {
             if (req.session.usuario._id.toString() !== key.toString()) {
                 cantidad++;
-                criterio.$or.push({_id: mongo.ObjectID(key)});
+                criterio.$or.push({_id: gestorBD.mongo.ObjectID(key)});
+                criterio.$or.push({propietario: key});
                 logger.info("Se procede a borrar el usuario con id " + key);
             }
         }
