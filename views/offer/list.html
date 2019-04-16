@@ -33,6 +33,8 @@
                        class="ownOffersListIdRem">Eliminar</a></td>
                 {% if offer.destacada %}
                 <td><span>Ya destacada</span></td>
+                {% elseif offer.compra != null %}
+                <td></td>
                 {% else %}
                 <td><a href="/oferta/star/{{offer._id.toString()}}"
                         id="{{offer._id.toString()}}listDest"

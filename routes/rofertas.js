@@ -21,7 +21,7 @@ module.exports = function (app, swig, gestorBD, logger) {
     app.get("/oferta/star/:id", function (req, res) {
         var id = req.params.id;
         if (id != null) {
-            gestorBD.obtenerOfertas({$and: [{_id: gestorBD.mongo.ObjectID(id)}, {propietario: req.session.usuario._id.toString()}, {destacada: null}]}, function (ofertas) {
+            gestorBD.obtenerOfertas({$and: [{_id: gestorBD.mongo.ObjectID(id)}, {propietario: req.session.usuario._id.toString()}, {destacada: null}, {compra: null}]}, function (ofertas) {
                 if (ofertas != null && ofertas.length > 0) {
                     if (req.session.usuario.cartera < 20) {
                         logger.info("El usuario " + req.session.usuario.email + " no teniendo suficiente saldo ha solicitado destacar la oferta " + id);

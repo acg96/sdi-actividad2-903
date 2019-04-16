@@ -91,7 +91,8 @@ module.exports = {
                 fecha: "26-02-2019",
                 precio: 2.4,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba2@gmail.com"
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
             var offer2 = {
@@ -100,7 +101,8 @@ module.exports = {
                 fecha: "15-01-2018",
                 precio: 0.90,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba2@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
             var offer3 = {
@@ -109,7 +111,8 @@ module.exports = {
                 fecha: "31-12-2017",
                 precio: 58.40,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                destacada: "on"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));
@@ -130,7 +133,8 @@ module.exports = {
                 fecha: "18-01-2019",
                 precio: 37.10,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba5@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
             var offer3 = {
@@ -139,7 +143,9 @@ module.exports = {
                 fecha: "24-02-2019",
                 precio: 4.50,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba5@gmail.com",
+                destacada: "on"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));
@@ -160,7 +166,8 @@ module.exports = {
                 fecha: "26-02-2019",
                 precio: 13.90,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba4@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
             var offer3 = {
@@ -178,7 +185,8 @@ module.exports = {
                 fecha: "21-02-2019",
                 precio: 12.43,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba4@gmail.com"
             };
             this.gestorBD.insertarOferta(offer4, function (id) {});
         }.bind(this));
@@ -190,7 +198,8 @@ module.exports = {
                 fecha: "13-05-2019",
                 precio: 12.60,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba@gmail.com"
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
             var offer2 = {
@@ -199,7 +208,8 @@ module.exports = {
                 fecha: "10-10-2019",
                 precio: 4.50,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
             var offer3 = {
@@ -229,7 +239,8 @@ module.exports = {
                 fecha: "19-12-2014",
                 precio: 4.53,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba3@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
             var offer3 = {
@@ -238,7 +249,9 @@ module.exports = {
                 fecha: "10-04-2020",
                 precio: 10.72,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                compra: "prueba3@gmail.com",
+                destacada: "on"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));
