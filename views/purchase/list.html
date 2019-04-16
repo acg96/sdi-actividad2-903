@@ -1,0 +1,32 @@
+{% extends "../base.html" %}
+{% block css %}<link rel="stylesheet" href="../css/custom.css" /> {% endblock %}
+{% block img %}<img src="../img/icon-wallapop.png" alt="logo" /> {% endblock %}
+{% block cuerpo %}
+<div class="container">
+    <h2>Tus compras</h2>
+    <div class="table-responsive">
+        <table class="table table-hover" id="tablePurchases">
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+                <th>Vendedor</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for offer in purchaseList %}
+            <tr>
+                <td
+                    id="{{offer._id.toString()}}_bought"
+                    class="purchasesUserList">{{offer.titulo}}</td>
+                <td>{{offer.detalles}}</td>
+                <td>{{offer.precio}}€</td>
+                <td>{{offer.emailVendedor}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

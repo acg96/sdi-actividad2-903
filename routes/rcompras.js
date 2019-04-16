@@ -27,4 +27,32 @@ module.exports = function (app, swig, gestorBD, logger) {
             res.redirect('/oferta/search');
         }
     });
+
+    app.get("/compra/list", function (req, res) {
+        gestorBD.obtenerOfertas({compra: req.session.usuario.email}, function (ofertas) {
+            var offerList = [];
+            if (ofertas != null) {
+                var e = 0;
+                for (var i= 0; i < ofertas.length; ++i) {
+                    gestorBD.obtenerUsuarioOferta(ofertas[i], function (usuarios, oferta) {
+                        if (usuarios != null) {
+                            oferta.emailVendedor = usuarios[0].email;
+                            offerList.push(oferta);
+                        }
+                        ++e;
+                        if (e === ofertas.length) {
+                            var respuesta = swig.renderFile('views/purchase/list.html', {usuario: req.session.usuario, purchaseList: offerList});
+                            res.send(respuesta);
+                        }
+                    });
+                }
+            } else {
+                var respuesta = swig.renderFile('views/purchase/list.html', {
+                    usuario: req.session.usuario,
+                    purchaseList: offerList
+                });
+                res.send(respuesta);
+            }
+        });
+    });
 };

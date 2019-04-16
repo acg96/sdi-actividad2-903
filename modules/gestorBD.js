@@ -36,6 +36,22 @@ module.exports = {
                 });
             }
         });
+    }, obtenerUsuarioOferta: function (oferta, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('usuariosW');
+                collection.find({_id: this.mongo.ObjectID(oferta.propietario)}).toArray(function (err, usuarios) {
+                    if (err) {
+                        funcionCallback(null, null);
+                    } else {
+                        funcionCallback(usuarios, oferta);
+                    }
+                    db.close();
+                });
+            }
+        }.bind(this));
     }, obtenerOfertas: function (criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
