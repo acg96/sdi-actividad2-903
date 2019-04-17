@@ -1,6 +1,8 @@
 // Modulos y variables globales
 var express = require('express');
 var app = express();
+var jwt = require('jsonwebtoken');
+app.set('jwt', jwt);
 var loggerLib = require('log4js');
 var logger = loggerLib.getLogger("wallapop");
 logger.level = 'all';
@@ -30,7 +32,7 @@ app.use(express.static('public'));
 
 // router acciones realizadas
 var routerAccionesRealizadas = express.Router();
-routerAccionesRealizadas.use(function(req, res, next) {
+routerAccionesRealizadas.use(function (req, res, next) {
     var urlSolicitada = req.originalUrl;
     var usuario = req.session.usuario == null ? "" : req.session.usuario.email;
     var cadena = "Estando no identificado se ";
@@ -43,6 +45,38 @@ routerAccionesRealizadas.use(function(req, res, next) {
 });
 // aplicar router acciones realizadas
 app.use("/*", routerAccionesRealizadas);
+
+// router cabeceras APIREST
+var routerCabecerasAPI = express.Router();
+routerCabecerasAPI.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "POST, GET, DELETE, UPDATE, PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
+    next();
+});
+app.use("/api/*", routerCabecerasAPI);
+
+// router autenticar token APIREST
+var routerTokenAPI = express.Router();
+routerTokenAPI.use(function (req, res, next) {
+    var token = req.headers['token'] || req.body.token || req.query.token;
+    if (token != null) {
+        jwt.verify(token, app.get('clave'), function (err, info) {
+            if (err || (Date.now() / 1000 - info.tiempo) > 600 || !info.usuario) {
+                res.status(403);
+                res.json({acceso: false, mensaje: 'Token invalido o caducado'});
+            } else {
+                res.usuario = info.usuario;
+                next();
+            }
+        });
+    } else {
+        res.status(403);
+        res.json({acceso: false, mensaje: 'No hay Token'});
+    }
+});
+app.use("/api/oferta/*", routerTokenAPI);
 
 // router usuario no identificado
 var routerUsuarioNoIdentificado = express.Router();
@@ -83,7 +117,7 @@ routerUsuarioAdministrador.use(function (req, res, next) {
             next();
         } else {
             logger.info("El usuario " + req.session.usuario.email + " ha solicitado acceso a una zona restringida a administradores");
-            req.session.checkError= 9999;
+            req.session.checkError = 9999;
             res.redirect("/error?status=403")
         }
     } else {
@@ -101,7 +135,7 @@ routerUsuarioEstandar.use(function (req, res, next) {
             next();
         } else {
             logger.info("El usuario " + req.session.usuario.email + " ha solicitado acceso a una zona restringida a usuarios estandar");
-            req.session.checkError= 9999;
+            req.session.checkError = 9999;
             res.redirect("/error?status=403")
         }
     } else {
@@ -113,18 +147,17 @@ app.use("/oferta/*", routerUsuarioEstandar);
 app.use("/compra/*", routerUsuarioEstandar);
 
 
-
 //Rutas
 require("./routes/rusuarios.js")(app, swig, gestorBD, logger);
 require("./routes/rapp")(app, swig, logger, gestorBD, initBD);
 require("./routes/rofertas.js")(app, swig, gestorBD, logger);
 require("./routes/rcompras.js")(app, swig, gestorBD, logger);
-
+require("./routes/rapiusuarios.js")(app, gestorBD, logger);
 
 
 // Redireccion de páginas no encontradas
-app.use(function(req, res) {
-    req.session.checkError= 9999;
+app.use(function (req, res) {
+    req.session.checkError = 9999;
     res.redirect('/error?status=404');
 });
 
@@ -132,7 +165,7 @@ app.use(function(req, res) {
 // Gestión de errores
 app.use(function (err, req, res, next) {
     logger.info("Error producido " + err);
-    req.session.checkError= 9999;
+    req.session.checkError = 9999;
     res.redirect("/error?status=500");
 });
 
