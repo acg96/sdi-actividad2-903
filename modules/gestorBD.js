@@ -116,6 +116,26 @@ module.exports = {
                 });
             }
         });
+    }, obtenerMensajes: function (conversacion, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var criterio = {};
+                if (conversacion != null) {
+                    criterio = {conversacionId: conversacion._id.toString()};
+                }
+                var collection = db.collection('mensajesW');
+                collection.find(criterio).toArray(function (err, mensajes) {
+                    if (err) {
+                        funcionCallback(null, conversacion);
+                    } else {
+                        funcionCallback(mensajes, conversacion);
+                    }
+                    db.close();
+                });
+            }
+        });
     }, obtenerOfertasPaginadas: function (criterio, pagActual, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {

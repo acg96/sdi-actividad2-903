@@ -11,6 +11,34 @@ module.exports = function (app, gestorBD, logger) {
         });
     });
 
+    app.get('/api/mensaje', function (req, res) {
+        if (req.query.idOferta) {
+            gestorBD.obtenerConversaciones({$and: [{oferta: req.query.idOferta}, {$or: [{comprador: res.idUsuario}, {vendedor: res.idUsuario}]}]}, function (conversaciones) {
+                if (conversaciones != null && conversaciones.length > 0) {
+                    var listConvers = [];
+                    for (var i = 0; i < conversaciones.length; ++i) {
+                        gestorBD.obtenerMensajes(conversaciones[i], function(mensajes, conver) {
+                            if (mensajes != null && mensajes.length > 0) {
+                                conver.mensajes = mensajes;
+                            }
+                            listConvers.push(conver);
+                            if (listConvers.length === conversaciones.length) {
+                                res.status(200);
+                                res.send(JSON.stringify(listConvers));
+                            }
+                        });
+                    }
+                } else {
+                    res.status(200);
+                    res.json({mensaje: "No se han encontrado conversaciones para la oferta indicada o puede que no sea partícipe en ellas"});
+                }
+            });
+        } else {
+            res.status(400);
+            res.json({ error : "No se han introducido los parámetros adecuados" });
+        }
+    });
+
     app.post('/api/mensaje', function (req, res) {
         if (req.body.idOferta && req.body.idDestinatario && req.body.mensaje && req.body.mensaje.trim() !== '') {
             gestorBD.obtenerOfertas({_id: gestorBD.mongo.ObjectID(req.body.idOferta)}, function (ofertas) {
