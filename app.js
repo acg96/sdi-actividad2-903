@@ -62,12 +62,14 @@ var routerTokenAPI = express.Router();
 routerTokenAPI.use(function (req, res, next) {
     var token = req.headers['token'] || req.body.token || req.query.token;
     if (token != null) {
+        console.log(token);
         jwt.verify(token, app.get('clave'), function (err, info) {
-            if (err || (Date.now() / 1000 - info.tiempo) > 600 || !info.usuario) {
+            if (err || (Date.now() / 1000 - info.tiempo) > 600 || !info.usuario || !info.idUsuario) {
                 res.status(403);
                 res.json({acceso: false, mensaje: 'Token invalido o caducado'});
             } else {
                 res.usuario = info.usuario;
+                res.idUsuario = info.idUsuario;
                 next();
             }
         });
@@ -76,7 +78,7 @@ routerTokenAPI.use(function (req, res, next) {
         res.json({acceso: false, mensaje: 'No hay Token'});
     }
 });
-app.use("/api/oferta/*", routerTokenAPI);
+app.use("/api/oferta*", routerTokenAPI);
 
 // router usuario no identificado
 var routerUsuarioNoIdentificado = express.Router();
@@ -153,6 +155,7 @@ require("./routes/rapp")(app, swig, logger, gestorBD, initBD);
 require("./routes/rofertas.js")(app, swig, gestorBD, logger);
 require("./routes/rcompras.js")(app, swig, gestorBD, logger);
 require("./routes/rapiusuarios.js")(app, gestorBD, logger);
+require("./routes/rapiofertas.js")(app, gestorBD, logger);
 
 
 // Redireccion de páginas no encontradas
