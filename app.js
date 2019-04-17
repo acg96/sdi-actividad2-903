@@ -82,6 +82,7 @@ routerTokenAPI.use(function (req, res, next) {
 });
 app.use("/api/oferta*", routerTokenAPI);
 app.use("/api/mensaje*", routerTokenAPI);
+app.use("/api/conversacion*", routerTokenAPI);
 
 // router usuario no identificado
 var routerUsuarioNoIdentificado = express.Router();
@@ -159,6 +160,7 @@ require("./routes/rofertas.js")(app, swig, gestorBD, logger);
 require("./routes/rcompras.js")(app, swig, gestorBD, logger);
 require("./routes/rapiusuarios.js")(app, gestorBD, logger);
 require("./routes/rapiofertas.js")(app, gestorBD, logger);
+require("./routes/rapimensajes.js")(app, gestorBD, logger);
 
 
 // Redireccion de páginas no encontradas
