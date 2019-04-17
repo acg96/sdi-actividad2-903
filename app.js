@@ -62,23 +62,26 @@ var routerTokenAPI = express.Router();
 routerTokenAPI.use(function (req, res, next) {
     var token = req.headers['token'] || req.body.token || req.query.token;
     if (token != null) {
-        console.log(token);
         jwt.verify(token, app.get('clave'), function (err, info) {
             if (err || (Date.now() / 1000 - info.tiempo) > 600 || !info.usuario || !info.idUsuario) {
+                logger.info("Se ha proporcionado un token inválido o caducado");
                 res.status(403);
-                res.json({acceso: false, mensaje: 'Token invalido o caducado'});
+                res.json({acceso: false, error: 'Token invalido o caducado'});
             } else {
+                logger.info("Se ha validado el token correctamente, usuario " + info.usuario);
                 res.usuario = info.usuario;
                 res.idUsuario = info.idUsuario;
                 next();
             }
         });
     } else {
+        logger.info("Se ha tratado de acceder a un recurso restringido sin proporcionar un token");
         res.status(403);
-        res.json({acceso: false, mensaje: 'No hay Token'});
+        res.json({acceso: false, error: 'No hay Token'});
     }
 });
 app.use("/api/oferta*", routerTokenAPI);
+app.use("/api/mensaje*", routerTokenAPI);
 
 // router usuario no identificado
 var routerUsuarioNoIdentificado = express.Router();

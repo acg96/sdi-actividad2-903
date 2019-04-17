@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fee0a074-289a-4ee3-b318-908f6bdc5e54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/routes/rapiofertas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/rapiusuarios.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapiusuarios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/rapiofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapiofertas.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,29 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/rcompras.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="28" column="7" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="72" column="112" selection-start-line="72" selection-start-column="112" selection-end-line="72" selection-end-column="112" />
+            <state relative-caret-position="103">
+              <caret line="18" column="90" selection-start-line="18" selection-start-column="90" selection-end-line="18" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -66,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="46" column="50" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+            <state relative-caret-position="136">
+              <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -110,6 +91,9 @@
       <find>_id</find>
       <find>home</find>
       <find>Math</find>
+      <find>this.</find>
+      <find>usuarios</find>
+      <find>bad</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -143,9 +127,9 @@
         <option value="$PROJECT_DIR$/modules/initBD.js" />
         <option value="$PROJECT_DIR$/views/purchase/list.html" />
         <option value="$PROJECT_DIR$/routes/rcompras.js" />
-        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
         <option value="$PROJECT_DIR$/routes/rapiusuarios.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
         <option value="$PROJECT_DIR$/routes/rapiofertas.js" />
       </list>
     </option>
@@ -257,12 +241,12 @@
       <workItem from="1555322098429" duration="14512000" />
       <workItem from="1555336641906" duration="18238000" />
       <workItem from="1555400950844" duration="42821000" />
-      <workItem from="1555488477130" duration="5847000" />
+      <workItem from="1555488477130" duration="16286000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81418000" />
+    <option name="totallyTimeSpent" value="91857000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -432,34 +416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="46" column="50" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="72" column="112" selection-start-line="72" selection-start-column="112" selection-end-line="72" selection-end-column="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="66" column="101" selection-start-line="66" selection-start-column="101" selection-end-line="66" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rapiusuarios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="13" column="50" lean-forward="true" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/rcompras.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -467,10 +423,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rapiusuarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="72" column="41" lean-forward="true" selection-start-line="72" selection-start-column="41" selection-end-line="72" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="76" column="12" lean-forward="true" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+        <state relative-caret-position="103">
+          <caret line="18" column="90" selection-start-line="18" selection-start-column="90" selection-end-line="18" selection-end-column="90" />
         </state>
       </provider>
     </entry>
