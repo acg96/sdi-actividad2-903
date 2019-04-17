@@ -30,6 +30,7 @@ module.exports = {
             }
         }.bind(this));
         var user1 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb744a19ff21b3100f8315c"),
             email: "prueba@gmail.com",
             password: this.app.get("crypto").createHmac('sha256', this.app.get('clave'))
                 .update("123456").digest('hex'),
@@ -38,7 +39,148 @@ module.exports = {
             apellidos: "González",
             cartera: 100
         };
+
+        var conver2 = {
+            oferta: "5cb7558373269510e4010001",
+            comprador: "5cb744a19ff21b3100f8315f",
+            vendedor: "5cb744a19ff21b3100f8315c",
+            vendedorEmail: "prueba@gmail.com"
+        };
+        this.gestorBD.insertarConversacion(conver2, function (id) {
+            var mens5 = {
+                contenido: "Hola 52",
+                autorId: "5cb744a19ff21b3100f8315f",
+                autorEmail: "prueba5@gmail.com",
+                fecha: new Date().getTime(),
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315c"
+            };
+            this.gestorBD.insertarMensaje(mens5, function (idMess){});
+            var mens6 = {
+                contenido: "Buenas! 12",
+                autorId: "5cb744a19ff21b3100f8315c",
+                autorEmail: "prueba@gmail.com",
+                fecha: new Date().getTime() + 1000,
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315f"
+            };
+            this.gestorBD.insertarMensaje(mens6, function (idMess){});
+            var mens7 = {
+                contenido: "¿Qué tal? 52",
+                autorId: "5cb744a19ff21b3100f8315f",
+                autorEmail: "prueba5@gmail.com",
+                fecha: new Date().getTime()+2000,
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315c"
+            };
+            this.gestorBD.insertarMensaje(mens7, function (idMess){});
+        }.bind(this));
+
+        var conver4 = {
+            oferta: "5cb7558373269510e400fffe",
+            comprador: "5cb744a19ff21b3100f8315e",
+            vendedor: "5cb744a19ff21b3100f8315a",
+            vendedorEmail: "prueba2@gmail.com"
+        };
+
+        this.gestorBD.insertarConversacion(conver4, function (id) {
+            var mens13 = {
+                contenido: "Hola 34",
+                autorId: "5cb744a19ff21b3100f8315e",
+                autorEmail: "prueba3@gmail.com",
+                fecha: new Date().getTime(),
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315a"
+            };
+            this.gestorBD.insertarMensaje(mens13, function (idMess){});
+            var mens14 = {
+                contenido: "Buenas! 24",
+                autorId: "5cb744a19ff21b3100f8315a",
+                autorEmail: "prueba2@gmail.com",
+                fecha: new Date().getTime() + 1000,
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315e"
+            };
+            this.gestorBD.insertarMensaje(mens14, function (idMess){});
+        }.bind(this));
+
+        var conver8 = {
+            oferta: "5cb7558373269510e4010000",
+            comprador: "5cb744a19ff21b3100f8315c",
+            vendedor: "5cb744a19ff21b3100f8315e",
+            vendedorEmail: "prueba3@gmail.com"
+        };
+
+        this.gestorBD.insertarConversacion(conver8, function (id) {
+            var mens29 = {
+                contenido: "Hola 18",
+                autorId: "5cb744a19ff21b3100f8315c",
+                autorEmail: "prueba@gmail.com",
+                fecha: new Date().getTime(),
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315e"
+            };
+            this.gestorBD.insertarMensaje(mens29, function (idMess){});
+        }.bind(this));
+
+        var conver10 = {
+            oferta: "5cb7558373269510e4010006",
+            comprador: "5cb744a19ff21b3100f8315a",
+            vendedor: "5cb744a19ff21b3100f8315b",
+            vendedorEmail: "prueba4@gmail.com"
+        };
+
+        this.gestorBD.insertarConversacion(conver10, function (id) {
+            var mens37 = {
+                contenido: "Hola 210",
+                autorId: "5cb744a19ff21b3100f8315a",
+                autorEmail: "prueba2@gmail.com",
+                fecha: new Date().getTime(),
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315b"
+            };
+            this.gestorBD.insertarMensaje(mens37, function (idMess){});
+        }.bind(this));
+
+        var conver13 = {
+            oferta: "5cb7558373269510e4010002",
+            comprador: "5cb744a19ff21b3100f8315b",
+            vendedor: "5cb744a19ff21b3100f8315f",
+            vendedorEmail: "prueba5@gmail.com"
+        };
+
+        this.gestorBD.insertarConversacion(conver13, function (id) {
+            var mens49 = {
+                contenido: "Hola 413",
+                autorId: "5cb744a19ff21b3100f8315b",
+                autorEmail: "prueba4@gmail.com",
+                fecha: new Date().getTime(),
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315f"
+            };
+            this.gestorBD.insertarMensaje(mens49, function (idMess){});
+            var mens50 = {
+                contenido: "Buenas! 513",
+                autorId: "5cb744a19ff21b3100f8315f",
+                autorEmail: "prueba5@gmail.com",
+                fecha: new Date().getTime() + 1000,
+                conversacionId: id.toString(),
+                leido: false,
+                receptorId: "5cb744a19ff21b3100f8315b"
+            };
+            this.gestorBD.insertarMensaje(mens50, function (idMess){});
+        }.bind(this));
+
         var user2 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb744a19ff21b3100f8315a"),
             email: "prueba2@gmail.com",
             password: this.app.get("crypto").createHmac('sha256', this.app.get('clave'))
                 .update("123456").digest('hex'),
@@ -48,6 +190,7 @@ module.exports = {
             cartera: 100
         };
         var user3 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb744a19ff21b3100f8315e"),
             email: "prueba3@gmail.com",
             password: this.app.get("crypto").createHmac('sha256', this.app.get('clave'))
                 .update("123456").digest('hex'),
@@ -57,6 +200,7 @@ module.exports = {
             cartera: 100
         };
         var user4 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb744a19ff21b3100f8315b"),
             email: "prueba4@gmail.com",
             password: this.app.get("crypto").createHmac('sha256', this.app.get('clave'))
                 .update("123456").digest('hex'),
@@ -66,6 +210,7 @@ module.exports = {
             cartera: 100
         };
         var user5 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb744a19ff21b3100f8315f"),
             email: "prueba5@gmail.com",
             password: this.app.get("crypto").createHmac('sha256', this.app.get('clave'))
                 .update("123456").digest('hex'),
@@ -75,6 +220,7 @@ module.exports = {
             cartera: 100
         };
         var user6 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb744a19ff21b3100f8315d"),
             email: "prueba6@gmail.com",
             password: this.app.get("crypto").createHmac('sha256', this.app.get('clave'))
                 .update("123456").digest('hex'),
@@ -96,6 +242,7 @@ module.exports = {
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
             var offer2 = {
+                _id: this.gestorBD.mongo.ObjectID("5cb7558373269510e4010001"),
                 titulo: "Producto 2",
                 detalles: "Hecho de metal",
                 fecha: "15-01-2018",
@@ -119,6 +266,7 @@ module.exports = {
         this.logger.info("El usuario " + user2.email + " ha sido generado.");
         this.gestorBD.insertarUsuario(user2, function (id) {
             var offer1 = {
+                _id: this.gestorBD.mongo.ObjectID("5cb7558373269510e400fffe"),
                 titulo: "Producto 4",
                 detalles: "Hecho de plástico",
                 fecha: "15-01-2019",
@@ -161,6 +309,7 @@ module.exports = {
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
             var offer2 = {
+                _id: this.gestorBD.mongo.ObjectID("5cb7558373269510e4010000"),
                 titulo: "Producto 8",
                 detalles: "Hecho de cerámica",
                 fecha: "26-02-2019",
@@ -193,6 +342,7 @@ module.exports = {
         this.logger.info("El usuario " + user4.email + " ha sido generado.");
         this.gestorBD.insertarUsuario(user4, function (id) {
             var offer1 = {
+                _id: this.gestorBD.mongo.ObjectID("5cb7558373269510e4010006"),
                 titulo: "Producto 10",
                 detalles: "Hecho de aglomerado",
                 fecha: "13-05-2019",
@@ -225,6 +375,7 @@ module.exports = {
         this.logger.info("El usuario " + user5.email + " ha sido generado.");
         this.gestorBD.insertarUsuario(user5, function (id) {
             var offer1 = {
+                _id: this.gestorBD.mongo.ObjectID("5cb7558373269510e4010002"),
                 titulo: "Producto 13",
                 detalles: "Hecho de serrín",
                 fecha: "02-12-2019",
