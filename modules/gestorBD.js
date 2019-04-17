@@ -155,6 +155,7 @@ module.exports = {
                             if (criterio.$or[i]._id) {
                                 this.borrarOfertas({propietario: criterio.$or[i]._id.toString()}, function (res){
                                 });
+                                this.borrarConversacion({comprador: criterio.$or[i]._id.toString()}, function (resss){});
                             }
                         }
                         funcionCallback(result.result.n);
@@ -163,6 +164,45 @@ module.exports = {
                 }.bind(this));
             }
         }.bind(this));
+    }, borrarConversacion: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('conversacionesW');
+                this.obtenerConversaciones(criterio, function (conversaciones) {
+                    collection.remove(criterio, function (err, result) {
+                        if (err) {
+                            funcionCallback(null);
+                        } else {
+                            funcionCallback(result.result.n);
+                        }
+                        db.close();
+                    });
+                    if (conversaciones != null) {
+                        for (var i = 0; i < conversaciones.length; ++i) {
+                            this.borrarMensajes({conversacionId: conversaciones[i]._id.toString()}, function(resMes){});
+                        }
+                    }
+                }.bind(this));
+            }
+        }.bind(this));
+    }, borrarMensajes: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'),function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajesW');
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.result.n);
+                    }
+                    db.close();
+                });
+            }
+        });
     }, borrarOfertas: function (criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
@@ -180,8 +220,7 @@ module.exports = {
                     });
                     if (ofertas != null) {
                         for (var i = 0; i < ofertas.length; ++i) {
-                           // console.log(ofertas[i].titulo);
-                          // ofertas[i]._id.toString()
+                            this.borrarConversacion({oferta: ofertas[i]._id.toString()}, function(resConver){});
                         }
                     }
                 }.bind(this));

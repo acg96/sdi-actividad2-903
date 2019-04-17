@@ -46,6 +46,13 @@ module.exports = function (app, swig, gestorBD, logger) {
                         }
                     });
                 }
+                if (ofertas.length === 0) {
+                    var respuesta = swig.renderFile('views/purchase/list.html', {
+                        usuario: req.session.usuario,
+                        purchaseList: offerList
+                    });
+                    res.send(respuesta);
+                }
             } else {
                 var respuesta = swig.renderFile('views/purchase/list.html', {
                     usuario: req.session.usuario,

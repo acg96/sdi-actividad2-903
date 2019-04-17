@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fee0a074-289a-4ee3-b318-908f6bdc5e54" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/rapiofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapiofertas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/rcompras.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rcompras.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,13 +28,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/purchase/list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+            <state relative-caret-position="155">
+              <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="103">
@@ -44,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
+            <state relative-caret-position="85">
+              <caret line="191" column="22" lean-forward="true" selection-start-line="191" selection-start-column="22" selection-end-line="191" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -126,11 +125,11 @@
         <option value="$PROJECT_DIR$/routes/rofertas.js" />
         <option value="$PROJECT_DIR$/modules/initBD.js" />
         <option value="$PROJECT_DIR$/views/purchase/list.html" />
-        <option value="$PROJECT_DIR$/routes/rcompras.js" />
         <option value="$PROJECT_DIR$/routes/rapiusuarios.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
         <option value="$PROJECT_DIR$/routes/rapiofertas.js" />
+        <option value="$PROJECT_DIR$/routes/rcompras.js" />
+        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
       </list>
     </option>
   </component>
@@ -241,12 +240,12 @@
       <workItem from="1555322098429" duration="14512000" />
       <workItem from="1555336641906" duration="18238000" />
       <workItem from="1555400950844" duration="42821000" />
-      <workItem from="1555488477130" duration="16286000" />
+      <workItem from="1555488477130" duration="19971000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91857000" />
+    <option name="totallyTimeSpent" value="95542000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -409,20 +408,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/purchase/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rcompras.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="28" column="7" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/rapiusuarios.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -437,13 +422,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -455,6 +433,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
           <caret line="18" column="90" selection-start-line="18" selection-start-column="90" selection-end-line="18" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rcompras.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="53" column="40" lean-forward="true" selection-start-line="53" selection-start-column="40" selection-end-line="53" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/purchase/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="191" column="22" lean-forward="true" selection-start-line="191" selection-start-column="22" selection-end-line="191" selection-end-column="22" />
         </state>
       </provider>
     </entry>
