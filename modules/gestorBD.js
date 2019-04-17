@@ -136,6 +136,22 @@ module.exports = {
                 });
             }
         });
+    }, obtenerMensaje: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajesW');
+                collection.find(criterio).toArray(function (err, mensajes) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(mensajes);
+                    }
+                    db.close();
+                });
+            }
+        });
     }, obtenerOfertasPaginadas: function (criterio, pagActual, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
@@ -272,6 +288,25 @@ module.exports = {
                     destacada: 'on'
                 };
                 collection.update({_id: this.mongo.ObjectID(oferta._id)}, {$set: oferta2}, function (err, obj) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(obj.result.n);
+                    }
+                    db.close();
+                });
+            }
+        }.bind(this));
+    }, actualizarMensajeLeido: function (mensaje, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajesW');
+                var mensaje2 = {
+                    leido: true
+                };
+                collection.update({_id: this.mongo.ObjectID(mensaje._id)}, {$set: mensaje2}, function (err, obj) {
                     if (err) {
                         funcionCallback(null);
                     } else {
