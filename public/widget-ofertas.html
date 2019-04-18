@@ -1,0 +1,65 @@
+<div id="widget-ofertas">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Detalles</th>
+            <th>Precio</th>
+            <th>Vendedor</th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaCuerpo"></tbody>
+    </table>
+</div>
+
+<script>
+    window.history.pushState("", "", "/cliente.html?w=ofertas");
+    var ofertas;
+
+    function cargarOfertas() {
+        $.ajax({
+            url: URLbase + "/oferta",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                ofertas = respuesta;
+                actualizarTabla(ofertas);
+            },
+            error: function (error) {
+                token = null;
+                Cookies.remove('token');
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarTabla(ofertas) {
+        $("#tablaCuerpo").empty();
+        for (i = 0; i < ofertas.length; i++) {
+            var cuerpo = "<tr id=" + ofertas[i]._id + ">" +
+                "<td>" + ofertas[i].titulo + "</td>" +
+                "<td>" + ofertas[i].detalles + "</td>" +
+                "<td>" + ofertas[i].precio + "€</td>" +
+                "<td>" + ofertas[i].emailVendedor + "</td>";
+            if (ofertas[i].compra == null) {
+                cuerpo += "<td>" +
+                    "<a style='cursor: pointer;' onclick=chat('" + ofertas[i]._id + "')>Chat</a>" +
+                    "</td>" +
+                    "</tr>";
+            } else {
+                cuerpo += "<td class=\"col-md-1\"></td></tr>";
+            }
+            $("#tablaCuerpo").append(cuerpo);
+        }
+    }
+
+    /*function chat(_id) {
+        idOfertaSeleccionada = _id;
+        $("#contenedor-principal").load("widget-conversacion.html");
+    }*/
+
+    cargarOfertas();
+</script>

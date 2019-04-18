@@ -126,7 +126,8 @@ module.exports = function (app, swig, gestorBD, logger) {
                     fecha: req.body.date.trim(),
                     precio: parseFloat(req.body.price),
                     destacada: req.body.star,
-                    propietario: req.session.usuario._id
+                    propietario: req.session.usuario._id,
+                    emailVendedor: req.session.usuario.email
                 }
                 gestorBD.insertarOferta(oferta, function (id) {
                     if (id == null) {

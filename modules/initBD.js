@@ -238,6 +238,7 @@ module.exports = {
                 precio: 2.4,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba@gmail.com",
                 compra: "prueba2@gmail.com"
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
@@ -249,6 +250,7 @@ module.exports = {
                 precio: 0.90,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba@gmail.com",
                 compra: "prueba2@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
@@ -257,9 +259,9 @@ module.exports = {
                 detalles: "Hecho de hierro",
                 fecha: "31-12-2017",
                 precio: 58.40,
-                destacada: null,
+                destacada: "on",
                 propietario: id.toString(),
-                destacada: "on"
+                emailVendedor: "prueba@gmail.com"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));
@@ -272,6 +274,7 @@ module.exports = {
                 fecha: "15-01-2019",
                 precio: 14.59,
                 destacada: null,
+                emailVendedor: "prueba2@gmail.com",
                 propietario: id.toString()
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
@@ -282,6 +285,7 @@ module.exports = {
                 precio: 37.10,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba2@gmail.com",
                 compra: "prueba5@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
@@ -290,10 +294,10 @@ module.exports = {
                 detalles: "Hecho de cartón",
                 fecha: "24-02-2019",
                 precio: 4.50,
-                destacada: null,
+                destacada: "on",
                 propietario: id.toString(),
-                compra: "prueba5@gmail.com",
-                destacada: "on"
+                emailVendedor: "prueba2@gmail.com",
+                compra: "prueba5@gmail.com"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));
@@ -305,7 +309,8 @@ module.exports = {
                 fecha: "02-05-2018",
                 precio: 60.0,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                emailVendedor: "prueba3@gmail.com"
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
             var offer2 = {
@@ -316,6 +321,7 @@ module.exports = {
                 precio: 13.90,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba3@gmail.com",
                 compra: "prueba4@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
@@ -325,7 +331,8 @@ module.exports = {
                 fecha: "10-01-2021",
                 precio: 10.72,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                emailVendedor: "prueba3@gmail.com"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
             var offer4 = {
@@ -335,6 +342,7 @@ module.exports = {
                 precio: 12.43,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba3@gmail.com",
                 compra: "prueba4@gmail.com"
             };
             this.gestorBD.insertarOferta(offer4, function (id) {});
@@ -349,6 +357,7 @@ module.exports = {
                 precio: 12.60,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba4@gmail.com",
                 compra: "prueba@gmail.com"
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
@@ -359,6 +368,7 @@ module.exports = {
                 precio: 4.50,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba4@gmail.com",
                 compra: "prueba@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
@@ -368,7 +378,8 @@ module.exports = {
                 fecha: "05-10-2017",
                 precio: 60.50,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                emailVendedor: "prueba4@gmail.com"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));
@@ -381,7 +392,8 @@ module.exports = {
                 fecha: "02-12-2019",
                 precio: 10.86,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                emailVendedor: "prueba5@gmail.com"
             };
             this.gestorBD.insertarOferta(offer1, function (id) {});
             var offer2 = {
@@ -391,6 +403,7 @@ module.exports = {
                 precio: 4.53,
                 destacada: null,
                 propietario: id.toString(),
+                emailVendedor: "prueba5@gmail.com",
                 compra: "prueba3@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
@@ -399,10 +412,10 @@ module.exports = {
                 detalles: "Hecho de corcho",
                 fecha: "10-04-2020",
                 precio: 10.72,
-                destacada: null,
+                destacada: "on",
                 propietario: id.toString(),
-                compra: "prueba3@gmail.com",
-                destacada: "on"
+                emailVendedor: "prueba5@gmail.com",
+                compra: "prueba3@gmail.com"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));
@@ -414,7 +427,8 @@ module.exports = {
                 fecha: "10-01-2021",
                 precio: 10.72,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                emailVendedor: "prueba6@gmail.com"
             };
             this.gestorBD.insertarOferta(offer2, function (id) {});
             var offer3 = {
@@ -423,7 +437,8 @@ module.exports = {
                 fecha: "10-01-2021",
                 precio: 10.72,
                 destacada: null,
-                propietario: id.toString()
+                propietario: id.toString(),
+                emailVendedor: "prueba6@gmail.com"
             };
             this.gestorBD.insertarOferta(offer3, function (id) {});
         }.bind(this));

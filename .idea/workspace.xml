@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fee0a074-289a-4ee3-b318-908f6bdc5e54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/cliente.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/cookie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/widget-login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/widget-ofertas.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/initBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/initBD.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/rcompras.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rcompras.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/rofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rofertas.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,28 +20,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/initBD.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3009">
-              <caret line="177" column="14" selection-start-line="177" selection-start-column="14" selection-end-line="177" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="-510">
               <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/cliente.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="52" column="63" lean-forward="true" selection-start-line="52" selection-start-column="63" selection-end-line="52" selection-end-column="63" />
+            <state relative-caret-position="154">
+              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
@@ -50,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/widget-login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="106">
               <caret line="32" column="12" lean-forward="true" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
@@ -65,10 +57,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+        <entry file="file://$PROJECT_DIR$/public/widget-ofertas.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="150" column="31" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
+            <state relative-caret-position="136">
+              <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+              <folding>
+                <element signature="n#style#0;n#a#0;n#td#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,7 +80,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Tienda</find>
       <find>==</find>
       <find>render</find>
       <find>static</find>
@@ -115,6 +109,7 @@
       <find>bad</find>
       <find>body.idMensaje</find>
       <find>this.mongo</find>
+      <find>cancion</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -144,17 +139,19 @@
         <option value="$PROJECT_DIR$/routes/rapp.js" />
         <option value="$PROJECT_DIR$/views/offer/search.html" />
         <option value="$PROJECT_DIR$/views/offer/list.html" />
-        <option value="$PROJECT_DIR$/routes/rofertas.js" />
         <option value="$PROJECT_DIR$/views/purchase/list.html" />
         <option value="$PROJECT_DIR$/routes/rapiusuarios.js" />
-        <option value="$PROJECT_DIR$/routes/rcompras.js" />
         <option value="$PROJECT_DIR$/modules/gestorBD.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/routes/rapiofertas.js" />
         <option value="$PROJECT_DIR$/routes/rapimensajes.js" />
-        <option value="$PROJECT_DIR$/modules/initBD.js" />
-        <option value="$PROJECT_DIR$/public/widget-login.html" />
         <option value="$PROJECT_DIR$/public/cliente.html" />
+        <option value="$PROJECT_DIR$/public/widget-canciones.html" />
+        <option value="$PROJECT_DIR$/routes/rofertas.js" />
+        <option value="$PROJECT_DIR$/modules/initBD.js" />
+        <option value="$PROJECT_DIR$/routes/rcompras.js" />
+        <option value="$PROJECT_DIR$/public/widget-ofertas.html" />
+        <option value="$PROJECT_DIR$/public/widget-login.html" />
       </list>
     </option>
   </component>
@@ -276,12 +273,12 @@
       <workItem from="1555336641906" duration="18238000" />
       <workItem from="1555400950844" duration="42821000" />
       <workItem from="1555488477130" duration="32667000" />
-      <workItem from="1555578997021" duration="4457000" />
+      <workItem from="1555578997021" duration="8033000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112695000" />
+    <option name="totallyTimeSpent" value="116271000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -442,45 +439,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="72" column="41" lean-forward="true" selection-start-line="72" selection-start-column="41" selection-end-line="72" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rcompras.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="53" column="40" lean-forward="true" selection-start-line="53" selection-start-column="40" selection-end-line="53" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="101" lean-forward="true" selection-start-line="2" selection-start-column="101" selection-end-line="2" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/initBD.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3009">
-          <caret line="177" column="14" selection-start-line="177" selection-start-column="14" selection-end-line="177" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/purchase/list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -508,13 +470,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="150" column="31" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -522,10 +477,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/cliente.html">
+    <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="52" column="63" lean-forward="true" selection-start-line="52" selection-start-column="63" selection-end-line="52" selection-end-column="63" />
+        <state relative-caret-position="34">
+          <caret line="2" column="101" lean-forward="true" selection-start-line="2" selection-start-column="101" selection-end-line="2" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="150" column="31" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/initBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="228" column="32" lean-forward="true" selection-start-line="228" selection-start-column="32" selection-end-line="228" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rcompras.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="125" column="48" lean-forward="true" selection-start-line="125" selection-start-column="48" selection-end-line="125" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-510">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/widget-ofertas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#td#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/widget-login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="32" column="12" lean-forward="true" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
           <folding>
             <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
@@ -534,10 +541,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/widget-login.html">
+    <entry file="file://$PROJECT_DIR$/public/cliente.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="32" column="12" lean-forward="true" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+        <state relative-caret-position="154">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
           <folding>
             <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />

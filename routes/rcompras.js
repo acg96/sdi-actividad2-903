@@ -32,27 +32,9 @@ module.exports = function (app, swig, gestorBD, logger) {
         gestorBD.obtenerOfertas({compra: req.session.usuario.email}, function (ofertas) {
             var offerList = [];
             if (ofertas != null) {
-                var e = 0;
-                for (var i= 0; i < ofertas.length; ++i) {
-                    gestorBD.obtenerUsuarioOferta(ofertas[i], function (usuarios, oferta) {
-                        if (usuarios != null) {
-                            oferta.emailVendedor = usuarios[0].email;
-                            offerList.push(oferta);
-                        }
-                        ++e;
-                        if (e === ofertas.length) {
-                            var respuesta = swig.renderFile('views/purchase/list.html', {usuario: req.session.usuario, purchaseList: offerList});
-                            res.send(respuesta);
-                        }
-                    });
-                }
-                if (ofertas.length === 0) {
-                    var respuesta = swig.renderFile('views/purchase/list.html', {
-                        usuario: req.session.usuario,
-                        purchaseList: offerList
-                    });
-                    res.send(respuesta);
-                }
+                offerList = ofertas;
+                var respuesta = swig.renderFile('views/purchase/list.html', {usuario: req.session.usuario, purchaseList: offerList});
+                res.send(respuesta);
             } else {
                 var respuesta = swig.renderFile('views/purchase/list.html', {
                     usuario: req.session.usuario,
