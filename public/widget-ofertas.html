@@ -46,7 +46,7 @@
                 "<td>" + ofertas[i].emailVendedor + "</td>";
             if (ofertas[i].compra == null) {
                 cuerpo += "<td>" +
-                    "<a style='cursor: pointer;' onclick=chat('" + ofertas[i]._id + "')>Chat</a>" +
+                    "<a id='"+ ofertas[i]._id +"_chat' style='cursor: pointer;' onclick=chat('" + ofertas[i]._id + "','"+ ofertas[i].propietario +"')>Chat</a>" +
                     "</td>" +
                     "</tr>";
             } else {
@@ -56,10 +56,11 @@
         }
     }
 
-    /*function chat(_id) {
+    function chat(_id, propietario) {
         idOfertaSeleccionada = _id;
+        idPropietario = propietario;
         $("#contenedor-principal").load("widget-conversacion.html");
-    }*/
+    }
 
     cargarOfertas();
 </script>

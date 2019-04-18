@@ -47,6 +47,8 @@
 
     if (Cookies.get('token') != null) {
         token = Cookies.get('token');
+        $("#barra-menu-derecha").empty();
+        $("#barra-menu").empty();
         $("#barra-menu-derecha").append("<li style=\"cursor: pointer;\"><a onclick=desconectarse()>Desconexión</a></li>");
         $("#barra-menu").append("<li style=\"cursor: pointer;\"><a onclick=widgetOfertas()>Ofertas</a></li>");
         $("#barra-menu").append("<li style=\"cursor: pointer;\"><a onclick=widgetConversaciones()>Conversaciones</a></li>");

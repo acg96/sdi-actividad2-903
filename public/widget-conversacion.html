@@ -1,0 +1,107 @@
+<div id="widget-conversacion">
+    <h2>Conversación</h2>
+    <form class="navbar-form">
+        <div class="form-group">
+            <input name="newMessageField" type="text" class="form-control"
+                   size="100"
+                   placeholder="Escribe tu mensaje" id="newMessageField"/>
+        </div>
+        <button type="button" class="btn btn-default" id="btnMessage">Enviar</button>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-hover" id="tableMessages">
+            <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Autor</th>
+                <th>Mensaje</th>
+            </tr>
+            </thead>
+            <tbody id="tablaMessages">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var mensajes;
+
+    function conseguirMensajes() {
+        $.ajax({
+            url : URLbase + "/mensaje/?idOferta=" + idOfertaSeleccionada ,
+            type : "GET",
+            data : {},
+            dataType : 'json',
+            headers : {
+                "token" : token
+            },
+            success : function(conversacion) {
+                if (conversacion.mensaje == null) {
+                    mensajes = conversacion[0].mensajes;
+                } else {
+                    mensajes = [];
+                }
+                actualizarTablaMensajes();
+            },
+            error : function(error) {
+            }
+        });
+    }
+
+    function actualizarTablaMensajes() {
+        if (mensajes != null && mensajes.length > 0) {
+            mensajes.sort(function (a, b) {
+                return a.fecha - b.fecha
+            });
+            $("#tablaMessages").empty();
+            for (i = 0; i < mensajes.length; i++) {
+                var cuerpo = "<tr id=" + mensajes[i]._id + ">" +
+                    "<td>" + new Date(mensajes[i].fecha).toLocaleString('es') + "</td>" +
+                    "<td>" + mensajes[i].autorEmail + "</td>" +
+                    "<td>" + mensajes[i].contenido + "</td>" +
+                    "</tr>";
+                $("#tablaMessages").append(cuerpo);
+            }
+            if (!$("#tablaMessages").length) {
+                clearInterval(Cookies.get('idInterval'));
+                Cookies.remove("idInterval");
+                mensajes = [];
+            }
+        } else {
+            if (!$("#tablaMessages").length) {
+                clearInterval(Cookies.get('idInterval'));
+                Cookies.remove("idInterval");
+                mensajes = [];
+            }
+        }
+    }
+
+    if (Cookies.get('idInterval') == null) {
+        var idInterval = setInterval(conseguirMensajes, 1000);
+        Cookies.set('idInterval', idInterval);
+    } else {
+        clearInterval(Cookies.get('idInterval'));
+        var idInterval = setInterval(conseguirMensajes, 1000);
+        Cookies.set('idInterval', idInterval);
+    }
+
+    $("#btnMessage").click(function () {
+        $.ajax({
+            url: URLbase + "/mensaje",
+            type: "POST",
+            data: {idOferta: idOfertaSeleccionada, idDestinatario: idPropietario, mensaje: $("#newMessageField").val()},
+            dataType: 'json',
+            headers : {
+                "token" : token
+            },
+            success: function (respuesta) {
+                $("#newMessageField").val('');
+            },
+            error: function (error) {
+                token = null;
+                Cookies.remove('token');
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    });
+</script>
