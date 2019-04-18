@@ -5,6 +5,7 @@
             <th>Título</th>
             <th>Ofertante</th>
             <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
         </tr>
         </thead>
         <tbody id="tablaConversaciones"></tbody>
@@ -44,11 +45,31 @@
                 "<td>" + conversaciones[i].ofertaObj.titulo + "</td>" +
                 "<td>" + conversaciones[i].vendedorEmail + "</td>" +
             "<td>" + "<a id='"+ conversaciones[i]._id +"_chat' style='cursor: pointer;' onclick=chatConv('" + conversaciones[i].oferta + "','"+ conversaciones[i].vendedor + "','"+ conversaciones[i]._id.toString() + "','"+ conversaciones[i].vendedorEmail + "','"+ conversaciones[i].comprador +"')>Chat</a>" +
-                    "</td>" +
+                    "</td>"
+                + "<td>" + "<a id='"+ conversaciones[i]._id +"_del' style='cursor: pointer;' onclick=chatEliminar('" + conversaciones[i]._id.toString() +"')>Eliminar</a>" +
+                "</td>" +
                     "</tr>";
 
             $("#tablaConversaciones").append(cuerpo);
         }
+    }
+
+    function chatEliminar(idConversacion) {
+        $.ajax({
+            url: URLbase + "/conversacion/" + idConversacion,
+            type: "DELETE",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                $("#contenedor-principal").load("widget-conversaciones.html");
+            },
+            error: function (error) {
+                token = null;
+                Cookies.remove('token');
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
     }
 
     function chatConv(_id, propietario, idConv, emailProp, idComp) {
