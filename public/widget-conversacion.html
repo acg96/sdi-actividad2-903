@@ -15,6 +15,7 @@
                 <th>Fecha</th>
                 <th>Autor</th>
                 <th>Mensaje</th>
+                <th class="col-md-1"></th>
             </tr>
             </thead>
             <tbody id="tablaMessages">
@@ -85,11 +86,32 @@
             });
             $("#tablaMessages").empty();
             for (i = 0; i < mensajes.length; i++) {
+                if (mensajes[i].autorEmail !== Cookies.get('email') && !mensajes[i].leido){
+                    $.ajax({
+                        url: URLbase + "/mensaje/" + mensajes[i]._id.toString(),
+                        type: "PUT",
+                        data: {},
+                        dataType: 'json',
+                        headers: {"token": token},
+                        success: function (respuesta) {
+                        },
+                        error: function (error) {
+                            token = null;
+                            Cookies.remove('token');
+                            $("#contenedor-principal").load("widget-login.html");
+                        }
+                    });
+                }
                 var cuerpo = "<tr id=" + mensajes[i]._id + ">" +
                     "<td>" + new Date(mensajes[i].fecha).toLocaleString('es') + "</td>" +
                     "<td>" + mensajes[i].autorEmail + "</td>" +
-                    "<td>" + mensajes[i].contenido + "</td>" +
-                    "</tr>";
+                    "<td>" + mensajes[i].contenido + "</td>";
+                if (mensajes[i].leido && mensajes[i].autorEmail === Cookies.get('email')) {
+                    cuerpo += "<td style='font-style: italic;'>leido</td>";
+                } else {
+                    cuerpo += "<td></td>";
+                }
+                cuerpo += "</tr>";
                 $("#tablaMessages").append(cuerpo);
             }
             if (!$("#tablaMessages").length) {
