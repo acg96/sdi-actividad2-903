@@ -36,22 +36,46 @@
                 "token" : token
             },
             success : function(conversacion) {
-                if (conversacion.mensaje == null) {
-                    mensajes = conversacion[0].mensajes;
+                if (idConversacion) { // Procede del listado de conversaciones que puede tener ofertantes
+                    for (var i = 0; i < conversacion.length; ++i){
+                        if (conversacion[i]._id.toString() === idConversacion) {
+                            if (conversacion.mensaje == null) {
+                                mensajes = conversacion[i].mensajes;
+                            } else {
+                                mensajes = [];
+                            }
+                            break;
+                        }
+                    }
                 } else {
-                    mensajes = [];
+                    if (conversacion.mensaje == null) { //mensaje procedente de error
+                        mensajes = conversacion[0].mensajes;
+                    } else {
+                        mensajes = [];
+                    }
                 }
                 actualizarTablaMensajes();
             },
             error : function(error) {
                 ++controlLoggin;
                 if (controlLoggin === 3) {
+                    reset();
                     token = null;
                     Cookies.remove('token');
                     $("#contenedor-principal").load("widget-login.html");
                 }
             }
         });
+    }
+
+    function reset() {
+        clearInterval(Cookies.get('idInterval'));
+        Cookies.remove("idInterval");
+        mensajes = [];
+        idConversacion = null;
+        emailPropietario = null;
+        idComprador = null;
+        emailPropietario = null;
     }
 
     function actualizarTablaMensajes() {
@@ -69,15 +93,11 @@
                 $("#tablaMessages").append(cuerpo);
             }
             if (!$("#tablaMessages").length) {
-                clearInterval(Cookies.get('idInterval'));
-                Cookies.remove("idInterval");
-                mensajes = [];
+                reset();
             }
         } else {
             if (!$("#tablaMessages").length) {
-                clearInterval(Cookies.get('idInterval'));
-                Cookies.remove("idInterval");
-                mensajes = [];
+                reset();
             }
         }
     }
@@ -92,22 +112,57 @@
     }
 
     $("#btnMessage").click(function () {
-        $.ajax({
-            url: URLbase + "/mensaje",
-            type: "POST",
-            data: {idOferta: idOfertaSeleccionada, idDestinatario: idPropietario, mensaje: $("#newMessageField").val()},
-            dataType: 'json',
-            headers : {
-                "token" : token
-            },
-            success: function (respuesta) {
-                $("#newMessageField").val('');
-            },
-            error: function (error) {
-                token = null;
-                Cookies.remove('token');
-                $("#contenedor-principal").load("widget-login.html");
+        if (!idConversacion) {
+            $.ajax({
+                url: URLbase + "/mensaje",
+                type: "POST",
+                data: {
+                    idOferta: idOfertaSeleccionada,
+                    idDestinatario: idPropietario,
+                    mensaje: $("#newMessageField").val()
+                },
+                dataType: 'json',
+                headers: {
+                    "token": token
+                },
+                success: function (respuesta) {
+                    $("#newMessageField").val('');
+                },
+                error: function (error) {
+                    reset();
+                    token = null;
+                    Cookies.remove('token');
+                    $("#contenedor-principal").load("widget-login.html");
+                }
+            });
+        } else {
+            var destino = idPropietario;
+            var emailActual = Cookies.get('email');
+            if (emailPropietario === emailActual) {
+                destino = idComprador;
             }
-        });
+            $.ajax({
+                url: URLbase + "/mensaje",
+                type: "POST",
+                data: {
+                    idOferta: idOfertaSeleccionada,
+                    idDestinatario: destino,
+                    mensaje: $("#newMessageField").val()
+                },
+                dataType: 'json',
+                headers: {
+                    "token": token
+                },
+                success: function (respuesta) {
+                    $("#newMessageField").val('');
+                },
+                error: function (error) {
+                    reset();
+                    token = null;
+                    Cookies.remove('token');
+                    $("#contenedor-principal").load("widget-login.html");
+                }
+            });
+        }
     });
 </script>

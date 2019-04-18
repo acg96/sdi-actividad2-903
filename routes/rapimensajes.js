@@ -50,6 +50,30 @@ module.exports = function (app, gestorBD, logger) {
         }
     });
 
+    app.get('/api/conversacion', function (req, res) {
+        logger.info("El usuario " + res.usuario + " ha solicitado desde la API obtener las conversaciones que tiene abiertas");
+        gestorBD.obtenerConversaciones({$or: [{comprador: res.idUsuario}, {vendedor: res.idUsuario}]}, function (conversaciones) {
+            if (conversaciones != null && conversaciones.length > 0) {
+                var listConversaciones = [];
+                for (var i = 0; i < conversaciones.length; ++i) {
+                    gestorBD.obtenerOfertaConversacion(conversaciones[i], function (ofertas, conversacion) {
+                        if (ofertas != null && ofertas.length > 0) {
+                            conversacion.ofertaObj = ofertas[0];
+                        }
+                        listConversaciones.push(conversacion);
+                        if (listConversaciones.length === conversaciones.length) {
+                            res.status(200);
+                            res.send(JSON.stringify(listConversaciones));
+                        }
+                    });
+                }
+            } else {
+                res.status(200);
+                res.json({mensaje: "El usuario no tiene conversaciones abiertas"});
+            }
+        });
+    });
+
     app.get('/api/mensaje', function (req, res) {
         logger.info("El usuario " + res.usuario + " ha solicitado desde la API obtener las conversaciones con sus mensajes de la oferta " + req.query.idOferta);
         if (req.query.idOferta && req.query.idOferta.length === 24) {
@@ -83,9 +107,9 @@ module.exports = function (app, gestorBD, logger) {
         logger.info("El usuario " + res.usuario + " ha solicitado desde la API enviar un mensaje a la oferta " + req.body.idOferta);
         if (req.body.idOferta && req.body.idOferta.length === 24 && req.body.idDestinatario && req.body.idDestinatario.length === 24 && req.body.mensaje && req.body.mensaje.trim() !== '') {
             gestorBD.obtenerOfertas({_id: gestorBD.mongo.ObjectID(req.body.idOferta)}, function (ofertas) {
-                if (ofertas == null || ofertas.length === 0 || ofertas[0].compra != null) {
+                if (ofertas == null || ofertas.length === 0) {
                     res.status(400);
-                    res.json({ error : "La oferta indicada no existe o ya ha sido comprada" });
+                    res.json({ error : "La oferta indicada no existe" });
                 } else {
                     // Se comprueba que no trate de hablarse a el mismo
                     if (req.body.idDestinatario === res.idUsuario){
@@ -129,7 +153,7 @@ module.exports = function (app, gestorBD, logger) {
                                        }
                                     });
                                 } else {
-                                    if (req.body.idDestinatario === ofertas[0].propietario) {
+                                    if (req.body.idDestinatario === ofertas[0].propietario && ofertas[0].compra == null) {
                                         // Se crea la conversacion
                                         var conver = {
                                             oferta: criterio.oferta,
@@ -172,7 +196,7 @@ module.exports = function (app, gestorBD, logger) {
                                         });
                                     } else {
                                         res.status(400);
-                                        res.json({ error : "El propietario de una oferta no puede iniciar conversaciones" });
+                                        res.json({ error : "El propietario de una oferta no puede iniciar conversaciones ni tampoco se pueden iniciar conversaciones de ofertas ya compradas" });
                                     }
                                 }
                             });

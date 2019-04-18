@@ -59,6 +59,9 @@
     function chat(_id, propietario) {
         idOfertaSeleccionada = _id;
         idPropietario = propietario;
+        idConversacion = null;
+        emailPropietario = null;
+        idComprador = null;
         $("#contenedor-principal").load("widget-conversacion.html");
     }
 

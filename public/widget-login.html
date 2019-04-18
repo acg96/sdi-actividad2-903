@@ -38,6 +38,7 @@
         success: function (respuesta) {
             token = respuesta.token;
             Cookies.set('token', respuesta.token);
+            Cookies.set('email', $("#email").val());
             $("#barra-menu-derecha").empty();
             $("#barra-menu").empty();
             $("#barra-menu-derecha").append("<li style=\"cursor: pointer;\"><a onclick=desconectarse()>Desconexión</a></li>");

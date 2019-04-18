@@ -1,0 +1,64 @@
+<div id="widget-conversaciones">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Ofertante</th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaConversaciones"></tbody>
+    </table>
+</div>
+
+<script>
+    window.history.pushState("", "", "/cliente.html?w=conversaciones");
+    var conversaciones;
+
+    function cargarConversaciones() {
+        $.ajax({
+            url: URLbase + "/conversacion",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                conversaciones = respuesta;
+                conversaciones.sort(function(a, b) {
+                    return a._id.toString().localeCompare(b._id.toString());
+                });
+                actualizarTablaConversaciones(conversaciones);
+            },
+            error: function (error) {
+                token = null;
+                Cookies.remove('token');
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarTablaConversaciones(conversaciones) {
+        $("#tablaConversaciones").empty();
+        for (i = 0; i < conversaciones.length; i++) {
+            var cuerpo = "<tr id=" + conversaciones[i]._id + ">" +
+                "<td>" + conversaciones[i].ofertaObj.titulo + "</td>" +
+                "<td>" + conversaciones[i].vendedorEmail + "</td>" +
+            "<td>" + "<a id='"+ conversaciones[i]._id +"_chat' style='cursor: pointer;' onclick=chatConv('" + conversaciones[i].oferta + "','"+ conversaciones[i].vendedor + "','"+ conversaciones[i]._id.toString() + "','"+ conversaciones[i].vendedorEmail + "','"+ conversaciones[i].comprador +"')>Chat</a>" +
+                    "</td>" +
+                    "</tr>";
+
+            $("#tablaConversaciones").append(cuerpo);
+        }
+    }
+
+    function chatConv(_id, propietario, idConv, emailProp, idComp) {
+        idOfertaSeleccionada = _id;
+        idPropietario = propietario;
+        idConversacion = idConv;
+        emailPropietario = emailProp;
+        idComprador = idComp;
+        $("#contenedor-principal").load("widget-conversacion.html");
+    }
+
+    cargarConversaciones();
+</script>

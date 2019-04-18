@@ -84,6 +84,22 @@ module.exports = {
                 });
             }
         }.bind(this));
+    }, obtenerOfertaConversacion: function (conversacion, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('ofertasW');
+                collection.find({_id: this.mongo.ObjectID(conversacion.oferta)}).toArray(function (err, ofertas) {
+                    if (err) {
+                        funcionCallback(null, conversacion);
+                    } else {
+                        funcionCallback(ofertas, conversacion);
+                    }
+                    db.close();
+                });
+            }
+        }.bind(this));
     }, obtenerOfertas: function (criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
