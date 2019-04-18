@@ -6,6 +6,7 @@
             <th>Ofertante</th>
             <th class="col-md-1"></th>
             <th class="col-md-1"></th>
+            <th>Sin leer</th>
         </tr>
         </thead>
         <tbody id="tablaConversaciones"></tbody>
@@ -15,6 +16,11 @@
 <script>
     window.history.pushState("", "", "/cliente.html?w=conversaciones");
     var conversaciones;
+
+    function resetMens() {
+        clearInterval(Cookies.get('idIntervalMens'));
+        Cookies.remove("idIntervalMens");
+    }
 
     function cargarConversaciones() {
         $.ajax({
@@ -31,6 +37,7 @@
                 actualizarTablaConversaciones(conversaciones);
             },
             error: function (error) {
+                resetMens();
                 token = null;
                 Cookies.remove('token');
                 $("#contenedor-principal").load("widget-login.html");
@@ -49,9 +56,38 @@
                 + "<td>" + "<a id='"+ conversaciones[i]._id +"_del' style='cursor: pointer;' onclick=chatEliminar('" + conversaciones[i]._id.toString() +"')>Eliminar</a>" +
                 "</td>" +
                     "</tr>";
+            getNumberMessages(conversaciones[i]);
 
             $("#tablaConversaciones").append(cuerpo);
         }
+        if (!$("#tablaConversaciones").length) {
+            resetMens();
+        }
+    }
+
+    function getNumberMessages(conversacion){
+        $.ajax({
+            url: URLbase + "/mensaje/?idOferta=" + conversacion.oferta,
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                for (var e= 0; e < respuesta.length; ++e) {
+                    if (respuesta[e]._id.toString() === conversacion._id.toString()){
+                        var cantidad = 0;
+                        for (var j = 0; j < respuesta[e].mensajes.length; ++j) {
+                            if (!respuesta[e].mensajes[j].leido && respuesta[e].mensajes[j].autorEmail !== Cookies.get('email')) {
+                                ++cantidad;
+                            }
+                        }
+                        $("#"+ conversacion._id.toString()).append("<td>" + cantidad +"</td>");
+                    }
+                }
+            },
+            error: function (error) {
+            }
+        });
     }
 
     function chatEliminar(idConversacion) {
@@ -62,9 +98,11 @@
             dataType: 'json',
             headers: {"token": token},
             success: function (respuesta) {
+                resetMens();
                 $("#contenedor-principal").load("widget-conversaciones.html");
             },
             error: function (error) {
+                resetMens();
                 token = null;
                 Cookies.remove('token');
                 $("#contenedor-principal").load("widget-login.html");
@@ -78,8 +116,16 @@
         idConversacion = idConv;
         emailPropietario = emailProp;
         idComprador = idComp;
+        resetMens();
         $("#contenedor-principal").load("widget-conversacion.html");
     }
-
     cargarConversaciones();
+    if (Cookies.get('idIntervalMens') == null) {
+        var idIntervalMens = setInterval(cargarConversaciones, 5000);
+        Cookies.set('idIntervalMens', idIntervalMens);
+    } else {
+        clearInterval(Cookies.get('idIntervalMens'));
+        var idIntervalMens = setInterval(cargarConversaciones, 5000);
+        Cookies.set('idIntervalMens', idIntervalMens);
+    }
 </script>
