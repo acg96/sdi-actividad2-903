@@ -380,8 +380,9 @@ public class MyWallapopTests {
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 3", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 4", PO_View.getTimeout());
 		driver.findElement(By.id("3pag")).click(); // Se va a página 3
-		// Sólo deberían aparecer 4 ofertas en la última página
+		// Sólo deberían aparecer 5 ofertas en la última página
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 5", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 6", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 7", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 8", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 9", PO_View.getTimeout());
@@ -562,4 +563,236 @@ public class MyWallapopTests {
 				PO_View.getP().getString("offer.add.error.notMoneyEnough", PO_Properties.getSPANISH()),
 				PO_View.getTimeout());
 	}
+
+	// PR29. Inicio de sesión con datos válidos (cliente REST)
+	@Test
+	public void PR29() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Se comprueba que no muestra mensaje de login incorrecto
+		PO_LoginView.checkFirstLoginAttemptREST(driver);
+		// Se rellena el formulario con datos válidos
+		PO_LoginView.fillFormREST(driver, "prueba2@gmail.com", "123456");
+		// Se comprueba que está logueado
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Título", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Detalles", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Precio", PO_View.getTimeout());
+	}
+
+	// PR30. Inicio de sesión inválido con email existente y
+	// contraseña incorrecta (cliente REST)
+	@Test
+	public void PR30() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Se comprueba que no muestra mensaje de login incorrecto
+		PO_LoginView.checkFirstLoginAttemptREST(driver);
+		// Se rellena el formulario con email válido y contraseña incorrecta
+		PO_LoginView.fillFormREST(driver, "prueba@gmail.com", "1234567");
+		// Se comprueba que no está logueado y sigue en la página de login con el
+		// mensaje de error
+		PO_LoginView.checkInvalidLoginREST(driver);
+	}
+
+	// PR31. Inicio de sesión con datos válidos con campo email vacío (cliente REST)
+	@Test
+	public void PR31() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Se comprueba que no muestra mensaje de login incorrecto
+		PO_LoginView.checkFirstLoginAttemptREST(driver);
+		// Se rellena el formulario con el email vacío
+		PO_LoginView.fillFormREST(driver, "  ", "123456");
+		// Se comprueba que no está logueado y sigue en la página de login con el
+		// mensaje de error
+		PO_LoginView.checkInvalidLoginREST(driver);
+	}
+
+	// PR32. Mostrar listado de ofertas disponibles y comprobar que se muestran
+	// todas las
+	// que existen excepto las del usuario autenticado
+	@Test
+	public void PR32() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Sólo deberían aparecer 15 ofertas
+		int totalEncontrado = PO_PrivateUserView.numeroProductosREST(driver);
+		assertTrue("Se esperaban 15 productos ha habido " + totalEncontrado, totalEncontrado == 15);
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 1", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 10", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 11", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 12", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 16", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 17", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 18", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 2", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 3", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 4", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 5", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 6", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 7", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 8", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 9", PO_View.getTimeout());
+	}
+
+	// PR33. Sobre la lista de ofertas enviar un mensaje por primera vez a una
+	// oferta
+	@Test
+	public void PR33() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Se clica sobre el link chat del producto 7 id: 5cb9c0621754f0179460360b
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "5cb9c0621754f0179460360b_chat");
+		// Se envia un mensaje
+		PO_PrivateUserView.addMessageREST(driver, "mensajeTest");
+		// Se comprueba que está el mensaje
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba5@gmail.com", PO_View.getTimeout());
+	}
+
+	// PR34. Sobre la lista de ofertas enviar un mensaje a una oferta con una
+	// conversación ya abierta
+	@Test
+	public void PR34() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba3@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba3@gmail.com", "123456");
+		// Se clica sobre el link chat del producto 4 id: 5cb7558373269510e400fffe
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "5cb7558373269510e400fffe_chat");
+		// Se comprueba que ya tiene mensajes
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Hola 34", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Buenas! 24", PO_View.getTimeout());
+		// Se envia un mensaje
+		PO_PrivateUserView.addMessageREST(driver, "mensajeTest");
+		// Se comprueba que está el mensaje y siguen los anteriores
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba3@gmail.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Hola 34", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Buenas! 24", PO_View.getTimeout());
+	}
+
+	// PR35. Mostrar el listado de conversaciones ya abiertas
+	@Test
+	public void PR35() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Se clica sobre el link de conversaciones
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnConvers");
+		// Comprobar que contiene las que debe
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 2", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 13", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba@gmail.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba5@gmail.com", PO_View.getTimeout());
+	}
+
+	// PR36. Sobre el listado de conversaciones eliminar la primera
+	@Test
+	public void PR36() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Se clica sobre el link de conversaciones
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnConvers");
+		// Comprobar que contiene las que debe
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 2", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 13", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba@gmail.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba5@gmail.com", PO_View.getTimeout());
+		// Se clica sobre el boton eliminar de la primera y se comprueba que desaparece
+		PO_PrivateUserView.borrarConversacionPorPosicionREST(driver, 0);
+	}
+
+	// PR37. Sobre el listado de conversaciones eliminar la ultima
+	@Test
+	public void PR37() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Se clica sobre el link de conversaciones
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnConvers");
+		// Comprobar que contiene las que debe
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 2", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 13", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba@gmail.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba5@gmail.com", PO_View.getTimeout());
+		// Se clica sobre el boton eliminar de la ultima y se comprueba que desaparece
+		PO_PrivateUserView.borrarConversacionPorPosicionREST(driver, PO_PrivateUserView.ULTIMA_POSICION);
+	}
+
+	// PR38. Comprobar que mensaje enviado pasa a leido cuando el receptor lo recibe
+	@Test
+	public void PR38() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Se clica sobre el link chat del producto 7 id: 5cb9c0621754f0179460360b
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "5cb9c0621754f0179460360b_chat");
+		// Se envia un mensaje
+		PO_PrivateUserView.addMessageREST(driver, "mensajeTest");
+		// Se comprueba que está el mensaje
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba5@gmail.com", PO_View.getTimeout());
+		// Se comprueba que no aparece como leido
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "leido", PO_View.getTimeout());
+		// Se sale de sesión
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnDescon");
+		// Se inicia sesión como el receptor de la oferta (prueba3@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba3@gmail.com", "123456");
+		// Se clica sobre el link de conversaciones
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnConvers");
+		// Se busca aquella que no coincida con el id de referencia de fila
+		// 5cb9ce733900533dc0930e21 o 5cb9ce733900533dc0930e22 que son las que ya
+		// estaban
+		String[] existentes = { "5cb9ce733900533dc0930e21", "5cb9ce733900533dc0930e22" };
+		String idConverNew = PO_PrivateUserView.obtenerIdentificadorNuevaConversacionREST(driver, existentes);
+		// Se clica sobre la opción de chat de la conversacion nueva
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, idConverNew + "_chat");
+		// Se comprueba que esta el mensaje enviado
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba5@gmail.com", PO_View.getTimeout());
+		// Se sale de sesión para volver a entrar como el remitente
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnDescon");
+		// Se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Se clica sobre el link chat del producto 7 id: 5cb9c0621754f0179460360b
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "5cb9c0621754f0179460360b_chat");
+		// Se comprueba que está el mensaje enviado anteriormente y que sale un leido
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "prueba5@gmail.com", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "leido", PO_View.getTimeout());
+	}
+
+	// PR39. Comprobar que el numero de mensajes sin leer se muestra correctamente
+	@Test
+	public void PR39() {
+		driver.navigate().to(URL + "/cliente.html");
+		// Primero se inicia sesión como usuario estándar (prueba5@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba5@gmail.com", "123456");
+		// Se clica sobre el link chat del producto 7 id: 5cb9c0621754f0179460360b
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "5cb9c0621754f0179460360b_chat");
+		// Se envían tres mensajes y se comprueba que esten
+		PO_PrivateUserView.addMessageREST(driver, "mensajeTest1");
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest1", PO_View.getTimeout());
+		PO_PrivateUserView.addMessageREST(driver, "mensajeTest2");
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest2", PO_View.getTimeout());
+		PO_PrivateUserView.addMessageREST(driver, "mensajeTest3");
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "mensajeTest3", PO_View.getTimeout());
+		// Se comprueba que no aparecen como leido
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "leido", PO_View.getTimeout());
+		// Se sale de sesión
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnDescon");
+		// Se inicia sesión como el receptor de la oferta (prueba3@gmail.com)
+		PO_LoginView.inicioDeSesionUserREST(driver, "prueba3@gmail.com", "123456");
+		// Se clica sobre el link de conversaciones
+		PO_PrivateUserView.clicarEnlacePorIdentificadorREST(driver, "btnConvers");
+		// Se busca aquella que no coincida con el id de referencia de fila
+		// 5cb9ce733900533dc0930e21 o 5cb9ce733900533dc0930e22 que son las que ya
+		// estaban
+		String[] existentes = { "5cb9ce733900533dc0930e21", "5cb9ce733900533dc0930e22" };
+		String idConverNew = PO_PrivateUserView.obtenerIdentificadorNuevaConversacionREST(driver, existentes);
+		// Se comprueba que aparece el numero 3
+		String valor = PO_PrivateUserView.obtenerValorEtiquetaREST(driver, idConverNew + "_converCantidad");
+		assertTrue("No sale el valor", valor.equals("3"));
+	}
+
 }

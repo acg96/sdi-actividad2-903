@@ -95,6 +95,81 @@ public class PO_PrivateUserView extends PO_PrivateView {
 			assertTrue("El producto eliminado sigue estando", !w.getAttribute("id").equals(idProductoSeleccionado));
 		}
 	}
+	
+	/**
+	 * Borra conversacion por posicion API REST
+	 * 
+	 * @param driver
+	 * @param pos    con la posición a borrar
+	 */
+	public static void borrarConversacionPorPosicionREST(WebDriver driver, int pos) {
+		List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "class", "opcEliminar", getTimeout());
+		assertTrue("No hay productos", !list.isEmpty());
+		assertTrue("La posición " + pos + " indicada no existe",
+				pos < list.size() && (pos >= 0 || pos == ULTIMA_POSICION));
+		if (pos == ULTIMA_POSICION)
+			pos = list.size() - 1;
+		String idProductoSeleccionado = list.get(pos).getAttribute("id");
+		list.get(pos).click();
+		SeleniumUtils.esperarSegundos(driver, 2);
+		list = SeleniumUtils.EsperaCargaPagina(driver, "class", "opcEliminar", getTimeout());
+		for (WebElement w : list) {
+			assertTrue("El producto eliminado sigue estando", !w.getAttribute("id").equals(idProductoSeleccionado));
+		}
+	}
+	
+	/**
+	 * Obtiene el valor de una etiqueta dado su id API REST
+	 * 
+	 * @param driver
+	 * @param identificador con el id
+	 */
+	public static String obtenerValorEtiquetaREST(WebDriver driver, String identificador) {
+		List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "id", identificador, getTimeout());
+		assertTrue("No existe el identificador", !list.isEmpty());
+		assertTrue("Se repite el identificador", list.size() == 1);
+		return list.get(0).getText();
+	}
+	
+	/**
+	 * Obtiene el identificador de la nueva conversacion creada API REST
+	 * 
+	 * @param driver
+	 * @param existentes[]    con los identificadores que ya había
+	 */
+	public static String obtenerIdentificadorNuevaConversacionREST(WebDriver driver, String[] existentes) {
+		List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "class", "conjConvers", getTimeout());
+		assertTrue("No hay conversaciones", !list.isEmpty());
+		String idConversacionNueva = "";
+		for (WebElement w : list) {
+			boolean control = false;
+			for (String s : existentes) {
+				if (w.getAttribute("id").equals(s)) {
+					control = true;
+					break;
+				}
+			}
+			if (!control) {
+				idConversacionNueva = w.getAttribute("id");
+				break;
+			}
+		}
+		assertTrue("No hay conversación nueva", !idConversacionNueva.equals(""));
+		return idConversacionNueva;
+	}
+	
+	/**
+	 * Clica el enlace con el identificador dado API REST
+	 * 
+	 * @param driver
+	 * @param pos    con la posición a borrar
+	 */
+	public static void clicarEnlacePorIdentificadorREST(WebDriver driver, String idString) {
+		List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "id", idString, getTimeout());
+		assertTrue("No hay productos", !list.isEmpty());
+		assertTrue("Se repite el id", list.size() == 1);
+		list.get(0).click();
+	}
 
 	/**
 	 * Destacar un producto por su posición
@@ -118,6 +193,21 @@ public class PO_PrivateUserView extends PO_PrivateView {
 			SeleniumUtils.esperaCargaPaginaNoIdPresente(driver, idProductoSeleccionado, pos);
 		}
 	}
+	
+	/**
+	 * Añadir un mensaje a una conversación API REST
+	 * 
+	 * @param driver
+	 * @param texto  con el texto a añadir
+	 */
+	public static void addMessageREST(WebDriver driver, String texto) {
+		WebElement messageInput = driver.findElement(By.name("newMessageField"));
+		messageInput.click();
+		messageInput.clear();
+		messageInput.sendKeys(texto);
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
+	}
 
 	/**
 	 * Buscar productos en lista
@@ -135,6 +225,27 @@ public class PO_PrivateUserView extends PO_PrivateView {
 		email.sendKeys(textoBusqueda);
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
+		int resultados = 0;
+		try {
+			List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "class", "searchOffersList", getTimeout());
+			resultados = list.size();
+		} catch (TimeoutException ex) {
+			// No hacer nada, ya que es que no hay productos
+			// y se carga antes en resultados el valor 0
+		}
+		return resultados;
+	}
+	
+	/**
+	 * Obtener numero de productos API REST
+	 * 
+	 * @param driver
+	 * @param textoBusqueda con lo que se quiere buscar
+	 * @param               int con el número de productos encontrados en la primera
+	 *                      página, coincidirá con el total si son 5 o menos
+	 *                      productos el total
+	 */
+	public static int numeroProductosREST(WebDriver driver) {
 		int resultados = 0;
 		try {
 			List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "class", "searchOffersList", getTimeout());

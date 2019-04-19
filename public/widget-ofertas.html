@@ -39,7 +39,7 @@
     function actualizarTabla(ofertas) {
         $("#tablaCuerpo").empty();
         for (i = 0; i < ofertas.length; i++) {
-            var cuerpo = "<tr id=" + ofertas[i]._id + ">" +
+            var cuerpo = "<tr class='searchOffersList' id=" + ofertas[i]._id + ">" +
                 "<td>" + ofertas[i].titulo + "</td>" +
                 "<td>" + ofertas[i].detalles + "</td>" +
                 "<td>" + ofertas[i].precio + "€</td>" +

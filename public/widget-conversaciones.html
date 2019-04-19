@@ -48,12 +48,12 @@
     function actualizarTablaConversaciones(conversaciones) {
         $("#tablaConversaciones").empty();
         for (i = 0; i < conversaciones.length; i++) {
-            var cuerpo = "<tr id=" + conversaciones[i]._id + ">" +
+            var cuerpo = "<tr class='conjConvers' id=" + conversaciones[i]._id + ">" +
                 "<td>" + conversaciones[i].ofertaObj.titulo + "</td>" +
                 "<td>" + conversaciones[i].vendedorEmail + "</td>" +
             "<td>" + "<a id='"+ conversaciones[i]._id +"_chat' style='cursor: pointer;' onclick=chatConv('" + conversaciones[i].oferta + "','"+ conversaciones[i].vendedor + "','"+ conversaciones[i]._id.toString() + "','"+ conversaciones[i].vendedorEmail + "','"+ conversaciones[i].comprador +"')>Chat</a>" +
                     "</td>"
-                + "<td>" + "<a id='"+ conversaciones[i]._id +"_del' style='cursor: pointer;' onclick=chatEliminar('" + conversaciones[i]._id.toString() +"')>Eliminar</a>" +
+                + "<td>" + "<a class='opcEliminar' id='"+ conversaciones[i]._id +"_del' style='cursor: pointer;' onclick=chatEliminar('" + conversaciones[i]._id.toString() +"')>Eliminar</a>" +
                 "</td>" +
                     "</tr>";
             getNumberMessages(conversaciones[i]);
@@ -81,7 +81,7 @@
                                 ++cantidad;
                             }
                         }
-                        $("#"+ conversacion._id.toString()).append("<td>" + cantidad +"</td>");
+                        $("#"+ conversacion._id.toString()).append("<td id='"+ conversacion._id.toString() +"_converCantidad'>" + cantidad +"</td>");
                     }
                 }
             },

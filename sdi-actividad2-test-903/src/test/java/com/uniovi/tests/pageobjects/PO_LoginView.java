@@ -26,6 +26,26 @@ public class PO_LoginView extends PO_NavView {
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
 	}
+	
+	/**
+	 * Rellenar el formulario de login para la API REST
+	 * 
+	 * @param driver
+	 * @param emailp    con el email
+	 * @param passwordp con la contraseña
+	 */
+	public static void fillFormREST(WebDriver driver, String emailp, String passwordp) {
+		WebElement email = driver.findElement(By.name("email"));
+		email.click();
+		email.clear();
+		email.sendKeys(emailp);
+		WebElement password = driver.findElement(By.name("password"));
+		password.click();
+		password.clear();
+		password.sendKeys(passwordp);
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
+	}
 
 	/**
 	 * Iniciar sesión de usuario normal
@@ -49,6 +69,24 @@ public class PO_LoginView extends PO_NavView {
 		// Se comprueba que está logueado
 		PO_NavView.checkMenuBeingInLoggedUser(driver);
 		PO_PrivateView.checkHomePage(driver);
+	}
+	
+	/**
+	 * Iniciar sesión de usuario normal API REST
+	 * 
+	 * @param driver
+	 * @param user     : String con el usuario
+	 * @param password : String con la contraseña
+	 */
+	public static void inicioDeSesionUserREST(WebDriver driver, String user, String password) {
+		// Se comprueba que no muestra mensaje de login incorrecto
+		PO_LoginView.checkFirstLoginAttemptREST(driver);
+		// Se rellena el formulario con datos válidos
+		PO_LoginView.fillFormREST(driver, user, password);
+		// Se comprueba que está logueado
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Título", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Detalles", PO_View.getTimeout());
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Precio", PO_View.getTimeout());
 	}
 
 	/**
@@ -91,6 +129,16 @@ public class PO_LoginView extends PO_NavView {
 		checkMenuNotBeingInLogged(driver);
 		SeleniumUtils.esperaCargaPaginaIdPresente(driver, "loginError", getTimeout());
 	}
+	
+	/**
+	 * Comprobar que sale el mensaje de login invalido además de que esté donde debe API REST
+	 * 
+	 * @param driver
+	 */
+	public static void checkInvalidLoginREST(WebDriver driver) {
+		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Identifícate", PO_View.getTimeout());
+		SeleniumUtils.esperaCargaPaginaIdPresente(driver, "loginError", getTimeout());
+	}
 
 	/**
 	 * Comprueba que no se encuentre el mensaje de login incorrecto al acceder al
@@ -100,6 +148,16 @@ public class PO_LoginView extends PO_NavView {
 	 */
 	public static void checkFirstLoginAttempt(WebDriver driver) {
 		checkMenuNotBeingInLogged(driver);
+		SeleniumUtils.esperaCargaPaginaNoIdPresente(driver, "loginError", getTimeout());
+	}
+	
+	/**
+	 * Comprueba que no se encuentre el mensaje de login incorrecto al acceder al
+	 * login por primera vez para la API REST
+	 * 
+	 * @param driver
+	 */
+	public static void checkFirstLoginAttemptREST(WebDriver driver) {
 		SeleniumUtils.esperaCargaPaginaNoIdPresente(driver, "loginError", getTimeout());
 	}
 }

@@ -80,6 +80,7 @@ module.exports = {
         }.bind(this));
 
         var conver4 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb9ce733900533dc0930e21"),
             oferta: "5cb7558373269510e400fffe",
             comprador: "5cb744a19ff21b3100f8315e",
             vendedor: "5cb744a19ff21b3100f8315a",
@@ -110,6 +111,7 @@ module.exports = {
         }.bind(this));
 
         var conver8 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb9ce733900533dc0930e22"),
             oferta: "5cb7558373269510e4010000",
             comprador: "5cb744a19ff21b3100f8315c",
             vendedor: "5cb744a19ff21b3100f8315e",
@@ -150,6 +152,7 @@ module.exports = {
         }.bind(this));
 
         var conver13 = {
+            _id: this.gestorBD.mongo.ObjectID("5cb9ce733900533dc0930e20"),
             oferta: "5cb7558373269510e4010002",
             comprador: "5cb744a19ff21b3100f8315b",
             vendedor: "5cb744a19ff21b3100f8315f",
@@ -304,6 +307,7 @@ module.exports = {
         this.logger.info("El usuario " + user3.email + " ha sido generado.");
         this.gestorBD.insertarUsuario(user3, function (id) {
             var offer1 = {
+                _id: this.gestorBD.mongo.ObjectID("5cb9c0621754f0179460360b"),
                 titulo: "Producto 7",
                 detalles: "Hecho de barro",
                 fecha: "02-05-2018",
