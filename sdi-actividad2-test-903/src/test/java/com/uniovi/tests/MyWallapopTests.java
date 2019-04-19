@@ -18,14 +18,14 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyWallapopTests {
 	final static String URL_LOCAL = "http://localhost:8081";
-	final static String URL_AMAZON = "http://ec2-54-185-22-249.us-west-2.compute.amazonaws.com:8081";
+	final static String URL_AMAZON = "http://ec2-54-149-155-245.us-west-2.compute.amazonaws.com:8081";
 
 	static String PathFirefox64 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 	static String Geckdriver024 = "C:\\Selenium\\geckodriver024win64.exe";
 	static WebDriver driver = getDriver(PathFirefox64, Geckdriver024);
 
 	// *****************CAMBIAR AQUÍ POR OTRA URL*******************
-	static String URL = URL_LOCAL; // Cambiar por URL_LOCAL
+	static String URL = URL_AMAZON; // Cambiar por URL_LOCAL
 	// *****************CAMBIAR AQUÍ POR OTRA URL*******************
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
@@ -63,7 +63,7 @@ public class MyWallapopTests {
 		driver.navigate().to(URL + "/reset");
 		SeleniumUtils.esperarSegundos(driver, 3);
 	}
-
+	
 	// PR01. Registro de usuario con datos válidos (email vacío)
 	@Test
 	public void PR01() {
@@ -632,7 +632,7 @@ public class MyWallapopTests {
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 8", PO_View.getTimeout());
 		SeleniumUtils.EsperaCargaPaginaTieneTexto(driver, "Producto 9", PO_View.getTimeout());
 	}
-
+	
 	// PR33. Sobre la lista de ofertas enviar un mensaje por primera vez a una
 	// oferta
 	@Test
@@ -792,7 +792,7 @@ public class MyWallapopTests {
 		String idConverNew = PO_PrivateUserView.obtenerIdentificadorNuevaConversacionREST(driver, existentes);
 		// Se comprueba que aparece el numero 3
 		String valor = PO_PrivateUserView.obtenerValorEtiquetaREST(driver, idConverNew + "_converCantidad");
-		assertTrue("No sale el valor", valor.equals("3"));
+		assertTrue("Ha salido el valor " + valor + " y se esperaba 3", valor.equals("3"));
 	}
 
 }

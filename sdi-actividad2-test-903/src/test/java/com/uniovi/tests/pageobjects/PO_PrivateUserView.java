@@ -111,7 +111,7 @@ public class PO_PrivateUserView extends PO_PrivateView {
 			pos = list.size() - 1;
 		String idProductoSeleccionado = list.get(pos).getAttribute("id");
 		list.get(pos).click();
-		SeleniumUtils.esperarSegundos(driver, 2);
+		SeleniumUtils.esperarSegundos(driver, 10);
 		list = SeleniumUtils.EsperaCargaPagina(driver, "class", "opcEliminar", getTimeout());
 		for (WebElement w : list) {
 			assertTrue("El producto eliminado sigue estando", !w.getAttribute("id").equals(idProductoSeleccionado));
@@ -201,7 +201,8 @@ public class PO_PrivateUserView extends PO_PrivateView {
 	 * @param texto  con el texto a añadir
 	 */
 	public static void addMessageREST(WebDriver driver, String texto) {
-		WebElement messageInput = driver.findElement(By.name("newMessageField"));
+		List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "id", "newMessageField", getTimeout());
+		WebElement messageInput = list.get(0);
 		messageInput.click();
 		messageInput.clear();
 		messageInput.sendKeys(texto);

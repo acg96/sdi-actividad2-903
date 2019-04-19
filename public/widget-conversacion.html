@@ -59,7 +59,7 @@
             },
             error : function(error) {
                 ++controlLoggin;
-                if (controlLoggin === 3) {
+                if (controlLoggin === 10) {
                     reset();
                     token = null;
                     Cookies.remove('token');
@@ -96,9 +96,6 @@
                         success: function (respuesta) {
                         },
                         error: function (error) {
-                            token = null;
-                            Cookies.remove('token');
-                            $("#contenedor-principal").load("widget-login.html");
                         }
                     });
                 }

@@ -1,5 +1,7 @@
 package com.uniovi.tests.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,7 +37,8 @@ public class PO_LoginView extends PO_NavView {
 	 * @param passwordp con la contraseña
 	 */
 	public static void fillFormREST(WebDriver driver, String emailp, String passwordp) {
-		WebElement email = driver.findElement(By.name("email"));
+		List<WebElement> list = SeleniumUtils.EsperaCargaPagina(driver, "id", "email", getTimeout());
+		WebElement email = list.get(0);
 		email.click();
 		email.clear();
 		email.sendKeys(emailp);

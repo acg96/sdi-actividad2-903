@@ -25,6 +25,14 @@
 
 <script>
     window.history.pushState("", "", "/cliente.html?w=login");
+    if (Cookies.get('idInterval') != null) {
+        clearInterval(Cookies.get('idInterval'));
+        Cookies.remove('idInterval');
+    }
+    if (Cookies.get('idIntervalMens') != null) {
+        clearInterval(Cookies.get('idIntervalMens'));
+        Cookies.remove('idIntervalMens');
+    }
     if (Cookies.get('token') == null) {
         $("#barra-menu-derecha").empty();
         $("#barra-menu").empty();

@@ -38,9 +38,6 @@
             },
             error: function (error) {
                 resetMens();
-                token = null;
-                Cookies.remove('token');
-                $("#contenedor-principal").load("widget-login.html");
             }
         });
     }
@@ -81,6 +78,7 @@
                                 ++cantidad;
                             }
                         }
+                        $("#"+ conversacion._id.toString() +"_converCantidad").remove();
                         $("#"+ conversacion._id.toString()).append("<td id='"+ conversacion._id.toString() +"_converCantidad'>" + cantidad +"</td>");
                     }
                 }
