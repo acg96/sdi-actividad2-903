@@ -258,7 +258,7 @@ module.exports = {
                 titulo: "Producto 3",
                 detalles: "Hecho de hierro",
                 fecha: "31-12-2017",
-                precio: 58.40,
+                precio: 100.0,
                 destacada: "on",
                 propietario: id.toString(),
                 emailVendedor: "prueba@gmail.com"
@@ -307,7 +307,7 @@ module.exports = {
                 titulo: "Producto 7",
                 detalles: "Hecho de barro",
                 fecha: "02-05-2018",
-                precio: 60.0,
+                precio: 120.0,
                 destacada: null,
                 propietario: id.toString(),
                 emailVendedor: "prueba3@gmail.com"

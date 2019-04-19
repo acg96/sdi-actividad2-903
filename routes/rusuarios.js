@@ -83,6 +83,9 @@ module.exports = function (app, swig, gestorBD, logger) {
             if (usuarios != null) {
                 users = usuarios;
             }
+            users.sort(function (a, b) {
+                return a._id.toString().localeCompare(b._id.toString());
+            });
             var respuesta = swig.renderFile('views/user/list.html', {usuario: req.session.usuario, usersList: users});
             res.send(respuesta);
         });

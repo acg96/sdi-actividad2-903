@@ -96,6 +96,9 @@ module.exports = function (app, swig, gestorBD, logger) {
             if (ofertas != null) {
                 offerList = ofertas;
             }
+            offerList.sort(function (a, b) {
+               return a.titulo.localeCompare(b.titulo);
+            });
             var errorStar = -1;
             if (req.session.saldoIns != null && req.session.saldoIns === 0) {
                 req.session.saldoIns = null;
