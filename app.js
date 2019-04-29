@@ -14,8 +14,10 @@ var moment = require('moment');
 app.set('moment', moment);
 var gestorBD = require("./modules/gestorBD.js");
 var initBD = require("./modules/initBD.js");
+var gestorSwig = require("./modules/gestorSWIG.js");
 gestorBD.init(app, mongo);
 initBD.init(app, gestorBD, logger);
+gestorSwig.init(swig);
 var expressSession = require('express-session');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -154,10 +156,10 @@ app.use("/compra/*", routerUsuarioEstandar);
 
 
 //Rutas
-require("./routes/rusuarios.js")(app, swig, gestorBD, logger);
-require("./routes/rapp")(app, swig, logger, gestorBD, initBD);
-require("./routes/rofertas.js")(app, swig, gestorBD, logger);
-require("./routes/rcompras.js")(app, swig, gestorBD, logger);
+require("./routes/rusuarios.js")(app, gestorSwig, gestorBD, logger);
+require("./routes/rapp")(app, gestorSwig, logger, gestorBD, initBD);
+require("./routes/rofertas.js")(app, gestorSwig, gestorBD, logger);
+require("./routes/rcompras.js")(app, gestorSwig, gestorBD, logger);
 require("./routes/rapiusuarios.js")(app, gestorBD, logger);
 require("./routes/rapiofertas.js")(app, gestorBD, logger);
 require("./routes/rapimensajes.js")(app, gestorBD, logger);

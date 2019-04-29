@@ -33,14 +33,9 @@ module.exports = function (app, swig, gestorBD, logger) {
             var offerList = [];
             if (ofertas != null) {
                 offerList = ofertas;
-                var respuesta = swig.renderFile('views/purchase/list.html', {usuario: req.session.usuario, purchaseList: offerList});
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/purchase/list.html', {purchaseList: offerList});
             } else {
-                var respuesta = swig.renderFile('views/purchase/list.html', {
-                    usuario: req.session.usuario,
-                    purchaseList: offerList
-                });
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/purchase/list.html', {purchaseList: offerList});
             }
         });
     });

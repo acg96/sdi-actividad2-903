@@ -1,7 +1,6 @@
 module.exports = function (app, swig, gestorBD, logger) {
     app.get("/registrarse", function (req, res) {
-        var respuesta = swig.renderFile('views/signup.html', {usuario: req.session.usuario});
-        res.send(respuesta);
+        swig.renderTemplate(req, res, 'views/signup.html', {});
     });
 
     app.post("/registrarse", function (req, res) {
@@ -28,8 +27,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                 gestorBD.insertarUsuario(usuario, function (id) {
                     if (id == null) {
                         logger.info("Se ha producido un error desconocido en la bbdd al intentar registrar al usuario " + usuario.email + ".");
-                        var respuesta = swig.renderFile('views/signup.html', {mensaje: "Error al insertar el usuario", usuario: req.session.usuario});
-                        res.send(respuesta);
+                        swig.renderTemplate(req, res, 'views/signup.html', {mensaje: "Error al insertar el usuario"});
                     } else {
                         logger.info("El usuario " + usuario.email + " se ha registrado correctamente.");
                         usuario.id = id.toString();
@@ -39,15 +37,13 @@ module.exports = function (app, swig, gestorBD, logger) {
                 });
             } else {
                 logger.info("Se han producido errores durante el registro. Email: " + usuarioAValidar.email);
-                var respuesta = swig.renderFile('views/signup.html', {errors: errors, usuario: req.session.usuario});
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/signup.html', {errors: errors});
             }
         });
     });
 
     app.get("/identificarse", function (req, res) {
-        var respuesta = swig.renderFile('views/login.html', {usuario: req.session.usuario, error: 0});
-        res.send(respuesta);
+        swig.renderTemplate(req, res, 'views/login.html', {error: 0});
     });
 
     app.post("/identificarse", function (req, res) {
@@ -61,8 +57,7 @@ module.exports = function (app, swig, gestorBD, logger) {
             if (usuarios == null || usuarios.length === 0) {
                 logger.info("Inicio de sesión incorrecto. Email: " + usuario.email);
                 req.session.usuario = null;
-                var respuesta = swig.renderFile('views/login.html', {usuario: req.session.usuario, error: 1});
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/login.html', {error: 1});
             } else {
                 logger.info("El usuario " + usuario.email + " ha iniciado sesión.");
                 req.session.usuario = usuarios[0];
@@ -86,8 +81,7 @@ module.exports = function (app, swig, gestorBD, logger) {
             users.sort(function (a, b) {
                 return a._id.toString().localeCompare(b._id.toString());
             });
-            var respuesta = swig.renderFile('views/user/list.html', {usuario: req.session.usuario, usersList: users});
-            res.send(respuesta);
+            swig.renderTemplate(req, res, 'views/user/list.html', {usersList: users});
         });
     });
 
@@ -115,8 +109,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                 if (usuarios != null) {
                     users = usuarios;
                 }
-                var respuesta = swig.renderFile('views/user/list.html', {usuario: req.session.usuario, usersList: users, deleted: deleted});
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/user/list.html', {usersList: users, deleted: deleted});
             });
         });
     });

@@ -2,8 +2,7 @@ module.exports = function (app, swig, gestorBD, logger) {
     app.get("/oferta/add", function (req, res) {
         var moment = app.get('moment');
         var fechaActual = moment().format("DD-MM-YYYY");
-        var respuesta = swig.renderFile('views/offer/add.html', {usuario: req.session.usuario, fechaActual: fechaActual});
-        res.send(respuesta);
+        swig.renderTemplate(req, res, 'views/offer/add.html', {fechaActual: fechaActual});
     });
 
     app.get("/oferta/remove/:id", function (req, res) {
@@ -85,8 +84,7 @@ module.exports = function (app, swig, gestorBD, logger) {
             if (page.actual > page.total) {
                 page.actual = page.total;
             }
-            var respuesta = swig.renderFile('views/offer/search.html', {usuario: req.session.usuario, offerList: offerList, page: page, search: req.session.search, nomoney: nomoney});
-            res.send(respuesta);
+            swig.renderTemplate(req, res, 'views/offer/search.html', {offerList: offerList, page: page, search: req.session.search, nomoney: nomoney});
         });
     });
 
@@ -107,8 +105,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                 req.session.saldoIns = null;
                 errorStar = 0;
             }
-            var respuesta = swig.renderFile('views/offer/list.html', {usuario: req.session.usuario, offerList: offerList, errorStar: errorStar});
-            res.send(respuesta);
+            swig.renderTemplate(req, res, 'views/offer/list.html', {offerList: offerList, errorStar: errorStar});
         });
     });
 
@@ -152,8 +149,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                 logger.info("Se han producido errores durante el alta del producto.");
                 var moment = app.get('moment');
                 var fechaActual = moment().format("DD-MM-YYYY");
-                var respuesta = swig.renderFile('views/offer/add.html', {usuario: req.session.usuario, fechaActual: fechaActual, errors: errors});
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/offer/add.html', {fechaActual: fechaActual, errors: errors});
             }
         });
     });

@@ -12,7 +12,6 @@ module.exports = function (app, swig, logger, gestorBD, initBD) {
             req.session.checkError= null;
             var status = req.query.status;
             logger.info("Se ha producido un error " + status);
-            var respuesta = swig.renderFile('views/error.html', {usuario: req.session.usuario});
             if (status) {
                 var error = "Error " + status;
                 if (status === "403") {
@@ -22,13 +21,9 @@ module.exports = function (app, swig, logger, gestorBD, initBD) {
                 } else if (status === "500") {
                     error += ": Se ha producido un error inesperado";
                 }
-                respuesta = swig.renderFile('views/error.html', {
-                    usuario: req.session.usuario,
-                    errorType: error
-                });
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/error.html', {errorType: error});
             } else {
-                res.send(respuesta);
+                swig.renderTemplate(req, res, 'views/error.html', {});
             }
         } else {
             res.redirect('/');
@@ -41,14 +36,12 @@ module.exports = function (app, swig, logger, gestorBD, initBD) {
             if (ofertas != null) {
                 offerList = ofertas;
             }
-            var respuesta = swig.renderFile('views/home.html', {usuario: req.session.usuario, offerList: offerList});
-            res.send(respuesta);
+            swig.renderTemplate(req, res, 'views/home.html', {offerList: offerList});
         });
     });
 
     app.get("/principal", function (req, res) {
-        var respuesta = swig.renderFile('views/index.html', {usuario: req.session.usuario});
-        res.send(respuesta);
+        swig.renderTemplate(req, res, 'views/index.html', {});
     });
 
     app.get("/reset", function (req, res) {
